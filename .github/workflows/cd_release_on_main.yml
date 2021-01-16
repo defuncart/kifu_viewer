@@ -20,6 +20,8 @@ jobs:
       - uses: subosito/flutter-action@v1
         with:
           channel: 'dev'
+      - name: Determine App Version
+        run: echo "APP_VERSION=$(grep '^version:' pubspec.yaml | awk '{ print $2 }' | cut -d '+' -f 1)" >> $GITHUB_ENV
       - name: Install packages
         run:
           flutter pub get
@@ -39,8 +41,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ github.ref }}
-          release_name: ${{ env.APP_NAME }} ${{ github.ref }}
+          tag_name: ${{ env.APP_VERSION }}
+          release_name: ${{ env.APP_VERSION }}
           draft: false
           prerelease: false
       - name: Upload Release Asset
