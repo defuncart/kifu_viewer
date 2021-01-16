@@ -1,11 +1,9 @@
 name: cd_release_on_main
-on: push
-# on:
-#   push:
-#     branches:
-#       - master
+on:
+  push:
+    branches:
+      - main
 env:
-  APP_NAME: Kifu Viewer
   BUILD_NAME: Kifu\ Viewer.app
   ZIP_NAME: kifu_viewer.zip
 jobs:
