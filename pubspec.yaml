@@ -1,0 +1,47 @@
+name: kifu_viewer
+description: An application to view Shogi games by loading Kifu files.
+publish_to: 'none'
+version: 0.0.1+1
+
+environment:
+  sdk: ">=2.11.0 <3.0.0"
+  flutter: ">=1.23.0 <2.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  file_selector: ^0.7.0
+  file_selector_macos: ^0.0.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flappy_translator: ^1.5.0
+  flutter_analysis_options:
+    git:
+      url: https://github.com/defuncart/flutter_analysis_options
+  flutter_launcher_icons:
+    git:
+      url: https://github.com/dirkbo/flutter_launcher_icons
+
+flutter:
+  uses-material-design: true
+
+flappy_translator:
+  input_file_path: "assets_dev/loca/loca.csv"
+  output_dir: "lib"
+  file_name: "localizations"
+  class_name: "AppLocalizations"
+  delimiter: ";"
+  start_index: 1
+  depend_on_context: false
+  use_single_quotes: true
+  replace_no_break_spaces: false
+
+flutter_icons:
+  android: false
+  ios: false
+  macos: true
+  image_path: "assets_dev/icon/icon.png"
