@@ -6,7 +6,7 @@ on: push
 #       - master
 env:
   APP_NAME: Kifu Viewer
-  BUILD_NAME: Kifu Viewer.app
+  BUILD_NAME: "Kifu Viewer.app"
   ZIP_NAME: kifu_viewer.zip
 jobs:
   deploy:
