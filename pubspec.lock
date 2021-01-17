@@ -197,6 +197,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_shogi_board:
+    dependency: "direct main"
+    description:
+      name: flutter_shogi_board
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.0.6"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -314,6 +321,15 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.4.4"
+  shogi:
+    dependency: "direct overridden"
+    description:
+      path: "."
+      ref: "feature/add-kif-support"
+      resolved-ref: "4e2bc4824f03d2a8c375960b4c587aeba5f802e9"
+      url: "https://github.com/defuncart/shogi"
+    source: git
+    version: "0.0.4"
   sky_engine:
     dependency: transitive
     description: flutter
