@@ -1,2 +1,11 @@
 keys;en
 appTitle;Kifu Viewer
+generalOk;Ok
+generalOpen;Open
+homeScreenNoKifu;Please select a kifu by opening a file or pasting from clipboard.
+menuBarOpenFile;Open...
+menuBarClipboard;Paste from Clipboard
+invalidContentPopupTitle;Error!
+invalidContentPopupDescription;No moves found. Are you sure the content is valid?
+gameAlreadyOpenPopupTitle;Error!
+gameAlreadyOpenPopupDescription;Game already open. Please choose another game.

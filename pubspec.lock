@@ -197,6 +197,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_shogi_board:
+    dependency: "direct main"
+    description:
+      name: flutter_shogi_board
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.0.6"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -251,6 +258,22 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.12.10-nullsafety.3"
+  material_design_icons_flutter:
+    dependency: "direct main"
+    description:
+      name: material_design_icons_flutter
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "4.0.5855"
+  menubar:
+    dependency: "direct main"
+    description:
+      path: "plugins/menubar"
+      ref: "85dde09b702a0cb1f5e1392d2f030bdc3d4e5be3"
+      resolved-ref: "85dde09b702a0cb1f5e1392d2f030bdc3d4e5be3"
+      url: "git://github.com/google/flutter-desktop-embedding.git"
+    source: git
+    version: "0.1.0"
   meta:
     dependency: transitive
     description:
@@ -314,6 +337,15 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.4.4"
+  shogi:
+    dependency: "direct overridden"
+    description:
+      path: "."
+      ref: HEAD
+      resolved-ref: "41f55a9a41350399fc6d795f7fb1730b3af7798c"
+      url: "https://github.com/defuncart/shogi"
+    source: git
+    version: "0.0.4"
   sky_engine:
     dependency: transitive
     description: flutter

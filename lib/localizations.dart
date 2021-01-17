@@ -9,10 +9,44 @@ import 'package:flutter/material.dart';
 class AppLocalizations {
   static String get appTitle => _getText('appTitle');
 
+  static String get generalOk => _getText('generalOk');
+
+  static String get generalOpen => _getText('generalOpen');
+
+  static String get homeScreenNoKifu => _getText('homeScreenNoKifu');
+
+  static String get menuBarOpenFile => _getText('menuBarOpenFile');
+
+  static String get menuBarClipboard => _getText('menuBarClipboard');
+
+  static String get invalidContentPopupTitle =>
+      _getText('invalidContentPopupTitle');
+
+  static String get invalidContentPopupDescription =>
+      _getText('invalidContentPopupDescription');
+
+  static String get gameAlreadyOpenPopupTitle =>
+      _getText('gameAlreadyOpenPopupTitle');
+
+  static String get gameAlreadyOpenPopupDescription =>
+      _getText('gameAlreadyOpenPopupDescription');
+
   static Map<String, String> _localizedValues;
 
   static Map<String, String> _enValues = {
     'appTitle': 'Kifu Viewer',
+    'generalOk': 'Ok',
+    'generalOpen': 'Open',
+    'homeScreenNoKifu':
+        'Please select a kifu by opening a file or pasting from clipboard.',
+    'menuBarOpenFile': 'Open...',
+    'menuBarClipboard': 'Paste from Clipboard',
+    'invalidContentPopupTitle': 'Error!',
+    'invalidContentPopupDescription':
+        'No moves found. Are you sure the content is valid?',
+    'gameAlreadyOpenPopupTitle': 'Error!',
+    'gameAlreadyOpenPopupDescription':
+        'Game already open. Please choose another game.',
   };
 
   static Map<String, Map<String, String>> _allValues = {
