@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:kifu_viewer/localizations.dart';
 import 'package:kifu_viewer/widgets/home_screen/kifu_viewer.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:menubar/menubar.dart';
 import 'package:shogi/shogi.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -16,6 +17,31 @@ class _HomeScreenState extends State<HomeScreen> {
   List<Move> _moves;
 
   bool get _hasGame => _game != null && _game.isNotEmpty;
+
+  @override
+  void initState() {
+    super.initState();
+
+    setApplicationMenu([
+      Submenu(
+        label: 'Kifu',
+        children: [
+          MenuItem(
+            label: AppLocalizations.menuBarOpenFile,
+            enabled: true,
+            shortcut: LogicalKeySet(LogicalKeyboardKey.meta, LogicalKeyboardKey.keyO),
+            onClicked: () async => await _selectFile(),
+          ),
+          MenuItem(
+            label: AppLocalizations.menuBarClipboard,
+            enabled: true,
+            shortcut: LogicalKeySet(LogicalKeyboardKey.meta, LogicalKeyboardKey.shift, LogicalKeyboardKey.keyV),
+            onClicked: () async => await _fromClipboard(),
+          ),
+        ],
+      ),
+    ]);
+  }
 
   @override
   Widget build(BuildContext context) {
