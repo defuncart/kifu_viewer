@@ -21,6 +21,10 @@ class AppLocalizations {
   static String get invalidContentPopupDescription =>
       _getText('invalidContentPopupDescription');
 
+  static String get menuBarOpenFile => _getText('menuBarOpenFile');
+
+  static String get menuBarClipboard => _getText('menuBarClipboard');
+
   static Map<String, String> _localizedValues;
 
   static Map<String, String> _enValues = {
@@ -32,6 +36,8 @@ class AppLocalizations {
     'invalidContentPopupTitle': 'Error!',
     'invalidContentPopupDescription':
         'No moves found. Are you sure the content is valid?',
+    'menuBarOpenFile': 'Open...',
+    'menuBarClipboard': 'Paste from Clipboard',
   };
 
   static Map<String, Map<String, String>> _allValues = {

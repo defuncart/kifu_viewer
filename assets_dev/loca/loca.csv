@@ -5,3 +5,5 @@ generalOpen;Open
 homeScreenNoKifu;Please select a kifu by opening a file or pasting from clipboard.
 invalidContentPopupTitle;Error!
 invalidContentPopupDescription;No moves found. Are you sure the content is valid?
+menuBarOpenFile;Open...
+menuBarClipboard;Paste from Clipboard
