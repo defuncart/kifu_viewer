@@ -33,15 +33,24 @@ class _KifuViewerState extends State<KifuViewer> {
             Expanded(
               child: ListView.builder(
                 itemCount: widget.game.moves.length,
-                itemBuilder: (_, index) => Container(
-                  color: index == _currentIndex - 1 ? Theme.of(context).accentColor : Colors.transparent,
-                  child: GestureDetector(
-                    child: Text(widget.game.moves[index].asKif),
-                    onTap: () => setState(() => _currentIndex = index + 1),
-                  ),
-                ),
+                itemBuilder: (_, index) {
+                  final isSelected = index == _currentIndex - 1;
+                  return Container(
+                    color: isSelected ? Theme.of(context).accentColor : Colors.transparent,
+                    child: GestureDetector(
+                      child: Text(
+                        widget.game.moves[index].asKif,
+                        style: Theme.of(context).textTheme.bodyText2.apply(
+                              color: isSelected ? Colors.white : Theme.of(context).textTheme.bodyText2.color,
+                            ),
+                      ),
+                      onTap: () => setState(() => _currentIndex = index + 1),
+                    ),
+                  );
+                },
               ),
             ),
+            VerticalDivider(),
             SizedBox(width: 16),
             Column(
               children: [
