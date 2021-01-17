@@ -15,6 +15,7 @@ dependencies:
   file_selector: ^0.7.0
   file_selector_macos: ^0.0.1
   flutter_shogi_board: 0.0.6
+  material_design_icons_flutter: ^4.0.5855
 
 dev_dependencies:
   flutter_test:
