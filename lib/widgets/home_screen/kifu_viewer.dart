@@ -28,36 +28,53 @@ class _KifuViewerState extends State<KifuViewer> {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Center(
-        child: Column(
+        child: Row(
           children: [
             Expanded(
-              child: ShogiBoard(
-                gameBoard: gameBoard,
+              child: ListView.builder(
+                itemCount: widget.game.moves.length,
+                itemBuilder: (_, index) => Container(
+                  color: index == _currentIndex - 1 ? Theme.of(context).accentColor : Colors.transparent,
+                  child: GestureDetector(
+                    child: Text(widget.game.moves[index].asKif),
+                    onTap: () => setState(() => _currentIndex = index + 1),
+                  ),
+                ),
               ),
             ),
-            SizedBox(height: 16),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+            SizedBox(width: 16),
+            Column(
               children: [
-                IconButton(
-                  icon: Icon(Icons.skip_previous),
-                  onPressed: _canSkipStart ? () => setState(() => _currentIndex = 0) : null,
+                Expanded(
+                  child: ShogiBoard(
+                    gameBoard: gameBoard,
+                  ),
                 ),
-                IconButton(
-                  icon: Icon(Icons.fast_rewind),
-                  onPressed: _canRewind ? () => setState(() => _currentIndex--) : null,
-                ),
-                IconButton(
-                  icon: Icon(Icons.fast_forward),
-                  onPressed: _canFastForward ? () => setState(() => _currentIndex++) : null,
-                ),
-                IconButton(
-                  icon: Icon(Icons.skip_next),
-                  onPressed:
-                      _canSkipEnd ? () => setState(() => _currentIndex = widget.game.gameBoards.length - 1) : null,
-                ),
+                SizedBox(height: 16),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    IconButton(
+                      icon: Icon(Icons.skip_previous),
+                      onPressed: _canSkipStart ? () => setState(() => _currentIndex = 0) : null,
+                    ),
+                    IconButton(
+                      icon: Icon(Icons.fast_rewind),
+                      onPressed: _canRewind ? () => setState(() => _currentIndex--) : null,
+                    ),
+                    IconButton(
+                      icon: Icon(Icons.fast_forward),
+                      onPressed: _canFastForward ? () => setState(() => _currentIndex++) : null,
+                    ),
+                    IconButton(
+                      icon: Icon(Icons.skip_next),
+                      onPressed:
+                          _canSkipEnd ? () => setState(() => _currentIndex = widget.game.gameBoards.length - 1) : null,
+                    ),
+                  ],
+                )
               ],
-            )
+            ),
           ],
         ),
       ),
