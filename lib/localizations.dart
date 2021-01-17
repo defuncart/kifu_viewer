@@ -11,6 +11,8 @@ class AppLocalizations {
 
   static String get generalOk => _getText('generalOk');
 
+  static String get generalOpen => _getText('generalOpen');
+
   static String get homeScreenNoKifu => _getText('homeScreenNoKifu');
 
   static String get invalidContentPopupTitle =>
@@ -24,6 +26,7 @@ class AppLocalizations {
   static Map<String, String> _enValues = {
     'appTitle': 'Kifu Viewer',
     'generalOk': 'Ok',
+    'generalOpen': 'Open',
     'homeScreenNoKifu':
         'Please select a kifu by opening a file or pasting from clipboard.',
     'invalidContentPopupTitle': 'Error!',
