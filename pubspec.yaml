@@ -37,7 +37,6 @@ dependency_overrides:
   shogi:
     git:
       url: https://github.com/defuncart/shogi
-      ref: feature/add-kif-support
 
 flutter:
   uses-material-design: true

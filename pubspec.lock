@@ -341,8 +341,8 @@ packages:
     dependency: "direct overridden"
     description:
       path: "."
-      ref: "feature/add-kif-support"
-      resolved-ref: "35ca6c1de3fd82a0b0174e49bbc1583a383a777a"
+      ref: HEAD
+      resolved-ref: "41f55a9a41350399fc6d795f7fb1730b3af7798c"
       url: "https://github.com/defuncart/shogi"
     source: git
     version: "0.0.4"
