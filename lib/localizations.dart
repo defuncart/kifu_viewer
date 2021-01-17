@@ -9,10 +9,26 @@ import 'package:flutter/material.dart';
 class AppLocalizations {
   static String get appTitle => _getText('appTitle');
 
+  static String get generalOk => _getText('generalOk');
+
+  static String get homeScreenNoKifu => _getText('homeScreenNoKifu');
+
+  static String get invalidContentPopupTitle =>
+      _getText('invalidContentPopupTitle');
+
+  static String get invalidContentPopupDescription =>
+      _getText('invalidContentPopupDescription');
+
   static Map<String, String> _localizedValues;
 
   static Map<String, String> _enValues = {
     'appTitle': 'Kifu Viewer',
+    'generalOk': 'Ok',
+    'homeScreenNoKifu':
+        'Please select a kifu by opening a file or pasting from clipboard.',
+    'invalidContentPopupTitle': 'Error!',
+    'invalidContentPopupDescription':
+        'No moves found. Are you sure the content is valid?',
   };
 
   static Map<String, Map<String, String>> _allValues = {
