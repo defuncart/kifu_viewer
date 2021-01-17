@@ -24,6 +24,15 @@ class _KifuViewerState extends State<KifuViewer> {
   bool get _canSkipEnd => _currentIndex != widget.game.gameBoards.length - 1;
 
   @override
+  void didUpdateWidget(covariant KifuViewer oldWidget) {
+    super.didUpdateWidget(oldWidget);
+
+    if (oldWidget.game != widget.game) {
+      _currentIndex = 0;
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8.0),

@@ -89,13 +89,31 @@ class _HomeScreenState extends State<HomeScreen> {
   void _convertFile(String file) {
     final game = Game.fromKif(file);
     if (game != null) {
-      setState(() => _game = game);
+      if (game != _game) {
+        setState(() => _game = game);
+      } else {
+        _showCustomDialog(
+          title: AppLocalizations.gameAlreadyOpenPopupTitle,
+          description: AppLocalizations.gameAlreadyOpenPopupDescription,
+        );
+      }
     } else {
+      _showCustomDialog(
+        title: AppLocalizations.invalidContentPopupTitle,
+        description: AppLocalizations.invalidContentPopupDescription,
+      );
+    }
+  }
+
+  void _showCustomDialog({
+    @required String title,
+    @required description,
+  }) =>
       showDialog(
         context: context,
         builder: (context) => AlertDialog(
-          title: Text(AppLocalizations.invalidContentPopupTitle),
-          content: Text(AppLocalizations.invalidContentPopupDescription),
+          title: Text(title),
+          content: Text(description),
           actions: [
             TextButton(
               child: Text(AppLocalizations.generalOk.toUpperCase()),
@@ -107,6 +125,4 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ),
       );
-    }
-  }
 }
