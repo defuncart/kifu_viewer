@@ -342,7 +342,7 @@ packages:
     description:
       path: "."
       ref: "feature/add-kif-support"
-      resolved-ref: "4e2bc4824f03d2a8c375960b4c587aeba5f802e9"
+      resolved-ref: "43036ba50b1874b310fff3ed1ad951fb979d4d72"
       url: "https://github.com/defuncart/shogi"
     source: git
     version: "0.0.4"
