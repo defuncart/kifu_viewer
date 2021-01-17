@@ -107,7 +107,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void _showCustomDialog({
     @required String title,
-    @required description,
+    @required String description,
   }) =>
       showDialog(
         context: context,
