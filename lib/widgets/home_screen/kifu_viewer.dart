@@ -8,7 +8,7 @@ class KifuViewer extends StatefulWidget {
     @required this.game,
   }) : super(key: key);
 
-  final List<GameBoard> game;
+  final Game game;
 
   @override
   _KifuViewerState createState() => _KifuViewerState();
@@ -17,11 +17,11 @@ class KifuViewer extends StatefulWidget {
 class _KifuViewerState extends State<KifuViewer> {
   int _currentIndex = 0;
 
-  GameBoard get gameBoard => widget.game[_currentIndex];
+  GameBoard get gameBoard => widget.game.gameBoards[_currentIndex];
   bool get _canSkipStart => _currentIndex != 0;
   bool get _canRewind => _currentIndex > 0;
-  bool get _canFastForward => _currentIndex < widget.game.length - 1;
-  bool get _canSkipEnd => _currentIndex != widget.game.length - 1;
+  bool get _canFastForward => _currentIndex < widget.game.gameBoards.length - 1;
+  bool get _canSkipEnd => _currentIndex != widget.game.gameBoards.length - 1;
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +53,8 @@ class _KifuViewerState extends State<KifuViewer> {
                 ),
                 IconButton(
                   icon: Icon(Icons.skip_next),
-                  onPressed: _canSkipEnd ? () => setState(() => _currentIndex = widget.game.length - 1) : null,
+                  onPressed:
+                      _canSkipEnd ? () => setState(() => _currentIndex = widget.game.gameBoards.length - 1) : null,
                 ),
               ],
             )

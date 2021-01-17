@@ -13,10 +13,9 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  List<GameBoard> _game;
-  List<Move> _moves;
+  Game _game;
 
-  bool get _hasGame => _game != null && _game.isNotEmpty;
+  bool get _hasGame => _game != null && _game.gameBoards.isNotEmpty;
 
   @override
   void initState() {
@@ -88,17 +87,9 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void _convertFile(String file) {
-    _moves = KIFNotationConverter().movesFromFile(file);
-    if (_moves != null && _moves.isNotEmpty) {
-      print('# moves ${_moves.length}');
-      _game = [ShogiUtils.initialBoard];
-      for (final move in _moves) {
-        _game.add(
-          GameEngine.makeMove(_game.last, move),
-        );
-      }
-
-      setState(() {});
+    final game = Game.fromKif(file);
+    if (game != null) {
+      setState(() => _game = game);
     } else {
       showDialog(
         context: context,
