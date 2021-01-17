@@ -33,7 +33,6 @@ class _KifuViewerState extends State<KifuViewer> {
             Expanded(
               child: ShogiBoard(
                 gameBoard: gameBoard,
-                showPiecesInHand: false,
               ),
             ),
             SizedBox(height: 16),
