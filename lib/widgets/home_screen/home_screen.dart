@@ -1,5 +1,6 @@
 import 'package:file_selector_platform_interface/file_selector_platform_interface.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:kifu_viewer/localizations.dart';
 import 'package:kifu_viewer/widgets/home_screen/kifu_viewer.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
@@ -28,8 +29,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           IconButton(
             icon: Icon(MdiIcons.clipboardFileOutline),
-            // onPressed: () async => await _selectFile(),
-            onPressed: null,
+            onPressed: () async => await _fromClipboard(),
           ),
         ],
       ),
@@ -39,13 +39,6 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  /*
-  TextButton(
-          child: Text('Open Kifu'),
-          onPressed: () async => await _selectFile(),
-        ),
-        */
-
   Future<void> _selectFile() async {
     final file = await FileSelectorPlatform.instance.openFile(
       acceptedTypeGroups: [
@@ -53,14 +46,18 @@ class _HomeScreenState extends State<HomeScreen> {
           extensions: ['kif'],
         ),
       ],
-      confirmButtonText: 'Ok',
+      confirmButtonText: AppLocalizations.generalOpen,
     );
     if (file != null) {
-      // print(file.name);
-      // print(file.path);
       final contents = await file.readAsString();
       _convertFile(contents);
-      // print(contents);
+    }
+  }
+
+  Future<void> _fromClipboard() async {
+    final data = await Clipboard.getData('text/plain');
+    if (data != null) {
+      _convertFile(data.text);
     }
   }
 
@@ -86,7 +83,6 @@ class _HomeScreenState extends State<HomeScreen> {
             TextButton(
               child: Text(AppLocalizations.generalOk.toUpperCase()),
               onPressed: () => Navigator.of(context).pop(),
-              // style: ButtonStyle(textStyle: MaterialStateProperty()),
               style: TextButton.styleFrom(
                 primary: Theme.of(context).accentColor,
               ),
