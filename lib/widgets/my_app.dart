@@ -15,6 +15,7 @@ class MyApp extends StatelessWidget {
       ],
       supportedLocales: AppLocalizationsDelegate.supportedLocals,
       theme: AppThemes.light,
+      debugShowCheckedModeBanner: false,
       home: HomeScreen(),
     );
   }
