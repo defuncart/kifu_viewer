@@ -38,8 +38,8 @@ jobs:
       - name: Build app
         run:
           flutter build macos --release
-  build-windows:
-    name: Build windows
+  build-Windows:
+    name: Build Windows
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v1
