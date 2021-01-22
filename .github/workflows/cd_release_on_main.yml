@@ -1,55 +1,55 @@
-name: cd_release_on_main
-on:
-  push:
-    branches:
-      - main
-env:
-  BUILD_NAME: Kifu\ Viewer.app
-  ZIP_NAME: kifu_viewer.zip
-jobs:
-  deploy:
-    name: Deploy app
-    runs-on: macos-latest
-    steps:
-      - uses: actions/checkout@v1
-      - uses: actions/setup-java@v1
-        with:
-          java-version: '12.x'
-      - uses: subosito/flutter-action@v1
-        with:
-          channel: 'dev'
-      - name: Determine App Version
-        run: echo "APP_VERSION=$(grep '^version:' pubspec.yaml | awk '{ print $2 }' | cut -d '+' -f 1)" >> $GITHUB_ENV
-      - name: Install packages
-        run:
-          flutter pub get
-      - name: Enable macOS Support
-        run:
-          flutter config --enable-macos-desktop
-      - name: Build macOS
-        run:
-          flutter build macos --release
-      - name: Zip build
-        run: |
-            cd build/macos/Build/Products/Release/
-            zip -r ${{ env.ZIP_NAME }} ${{ env.BUILD_NAME }}
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ env.APP_VERSION }}
-          release_name: ${{ env.APP_VERSION }}
-          draft: false
-          prerelease: false
-      - name: Upload Release Asset
-        id: upload-release-asset 
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
-          asset_path: build/macos/Build/Products/Release/${{ env.ZIP_NAME }}
-          asset_name: ${{ env.ZIP_NAME }}
-          asset_content_type: application/zip
+# name: cd_release_on_main
+# on:
+#   push:
+#     branches:
+#       - main
+# env:
+#   BUILD_NAME: Kifu\ Viewer.app
+#   ZIP_NAME: kifu_viewer.zip
+# jobs:
+#   deploy:
+#     name: Deploy app
+#     runs-on: macos-latest
+#     steps:
+#       - uses: actions/checkout@v1
+#       - uses: actions/setup-java@v1
+#         with:
+#           java-version: '12.x'
+#       - uses: subosito/flutter-action@v1
+#         with:
+#           channel: 'dev'
+#       - name: Determine App Version
+#         run: echo "APP_VERSION=$(grep '^version:' pubspec.yaml | awk '{ print $2 }' | cut -d '+' -f 1)" >> $GITHUB_ENV
+#       - name: Install packages
+#         run:
+#           flutter pub get
+#       - name: Enable macOS Support
+#         run:
+#           flutter config --enable-macos-desktop
+#       - name: Build macOS
+#         run:
+#           flutter build macos --release
+#       - name: Zip build
+#         run: |
+#             cd build/macos/Build/Products/Release/
+#             zip -r ${{ env.ZIP_NAME }} ${{ env.BUILD_NAME }}
+#       - name: Create Release
+#         id: create_release
+#         uses: actions/create-release@v1
+#         env:
+#           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#         with:
+#           tag_name: ${{ env.APP_VERSION }}
+#           release_name: ${{ env.APP_VERSION }}
+#           draft: false
+#           prerelease: false
+#       - name: Upload Release Asset
+#         id: upload-release-asset 
+#         uses: actions/upload-release-asset@v1
+#         env:
+#           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#         with:
+#           upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
+#           asset_path: build/macos/Build/Products/Release/${{ env.ZIP_NAME }}
+#           asset_name: ${{ env.ZIP_NAME }}
+#           asset_content_type: application/zip
