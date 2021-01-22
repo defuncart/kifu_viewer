@@ -36,32 +36,34 @@ class _KifuViewerState extends State<KifuViewer> {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: Center(
-        child: Row(
-          children: [
-            Expanded(
-              child: ListView.builder(
-                itemCount: widget.game.moves.length,
-                itemBuilder: (_, index) {
-                  final isSelected = index == _currentIndex - 1;
-                  return Container(
-                    color: isSelected ? Theme.of(context).accentColor : Colors.transparent,
-                    child: GestureDetector(
-                      child: Text(
-                        widget.game.moves[index].asKif,
-                        style: Theme.of(context).textTheme.bodyText2.apply(
-                              color: isSelected ? Colors.white : Theme.of(context).textTheme.bodyText2.color,
-                            ),
-                      ),
-                      onTap: () => setState(() => _currentIndex = index + 1),
+      child: Row(
+        children: [
+          Container(
+            width: 120,
+            child: ListView.builder(
+              itemCount: widget.game.moves.length,
+              itemBuilder: (_, index) {
+                final isSelected = index == _currentIndex - 1;
+                return Container(
+                  color: isSelected ? Theme.of(context).accentColor : Colors.transparent,
+                  child: GestureDetector(
+                    child: Text(
+                      widget.game.moves[index].asKif,
+                      style: Theme.of(context).textTheme.bodyText2.apply(
+                            color: isSelected ? Colors.white : Theme.of(context).textTheme.bodyText2.color,
+                          ),
                     ),
-                  );
-                },
-              ),
+                    onTap: () => setState(() => _currentIndex = index + 1),
+                  ),
+                );
+              },
             ),
-            VerticalDivider(),
-            SizedBox(width: 16),
-            Column(
+          ),
+          VerticalDivider(),
+          SizedBox(width: 16),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Expanded(
                   child: ShogiBoard(
@@ -93,8 +95,8 @@ class _KifuViewerState extends State<KifuViewer> {
                 )
               ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
