@@ -19,6 +19,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       upload_url: ${{ steps.save_link.outputs.url }}
+      version: ${{ steps.determine_version.outputs.version }}
     steps:
       - name: Create Release
         id: create_release
@@ -34,6 +35,10 @@ jobs:
         id: save_link
         run: 
           echo "::set-output name=url::${{ steps.create_release.outputs.upload_url }}"
+      - name: Determine version
+        id: determine_version
+        run: 
+          echo "::set-output name=version::$(grep '^version:' pubspec.yaml | awk '{ print $2 }' | cut -d '+' -f 1)"
   macos:
     name: Build + Upload macOS
     runs-on: macos-latest
@@ -58,7 +63,7 @@ jobs:
           flutter build macos --release
       - name: Construct full zip name 
         run: 
-          echo "ZIP_FULL_NAME=${{ env.ZIP_NAME }}_macos_${{ github.event.release.tag_name }}" >> $GITHUB_ENV
+          echo "ZIP_FULL_NAME=${{ env.ZIP_NAME }}_macos_${{ needs.create_release.outputs.version }}.zip" >> $GITHUB_ENV
       - name: Zip build
         run: |
             cd build/macos/Build/Products/Release/
@@ -102,7 +107,7 @@ jobs:
           flutter build linux --release
       - name: Construct full zip name 
         run: 
-          echo "ZIP_FULL_NAME=${{ env.ZIP_NAME }}_linux_${{ github.event.release.tag_name }}" >> $GITHUB_ENV
+          echo "ZIP_FULL_NAME=${{ env.ZIP_NAME }}_linux_${{ needs.create_release.outputs.version }}.zip" >> $GITHUB_ENV
       - name: Zip build
         run: |
             cd ${{ env.BUILD_PATH_LINUX }}
@@ -140,7 +145,7 @@ jobs:
           flutter build windows --release
       - name: Construct full zip name 
         run: 
-          echo "ZIP_FULL_NAME=${{ env.ZIP_NAME }}_windows_${{ github.event.release.tag_name }}" >> $GITHUB_ENV
+          echo "ZIP_FULL_NAME=${{ env.ZIP_NAME }}_windows_${{ needs.create_release.outputs.version }}.zip" >> $GITHUB_ENV
       - name: Zip build
         run: |
             cd ${{ env.BUILD_PATH_WINDOWS }}
