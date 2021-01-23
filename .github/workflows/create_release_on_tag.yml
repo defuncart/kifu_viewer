@@ -77,64 +77,55 @@ jobs:
       - name: Save link
         id: save_link
         run: echo "::set-output name=url::${{ steps.create_release.outputs.upload_url }}"
-  test_var:
-    name: Test Var
+  # test_var:
+  #   name: Test Var
+  #   runs-on: ubuntu-latest
+  #   needs: create_release
+  #   steps:
+  #     - name: print
+  #       run: echo ${{ needs.create_release.outputs.upload_url }}
+  deploy_linux:
+    name: Deploy Linux
     runs-on: ubuntu-latest
     needs: create_release
     steps:
-      - name: print
-        run: echo ${{ needs.create_release.outputs.upload_url }}
-  # deploy_linux:
-  #   name: Deploy Linux
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - uses: actions/checkout@v1
-  #     - uses: actions/setup-java@v1
-  #       with:
-  #         java-version: '12.x'
-  #     - uses: subosito/flutter-action@v1
-  #       with:
-  #         channel: 'dev'
-  #     - name: Install packages
-  #       run:
-  #         flutter pub get
-  #     - name: Enable Linux Support
-  #       run:
-  #         flutter config --enable-linux-desktop
-  #     - name: Install dependencies for Linux
-  #       run: |
-  #         sudo apt install clang
-  #         sudo apt install ninja-build
-  #         sudo apt install libgtk-3-dev
-  #         sudo apt install libblkid-dev
-  #     - name: Build Linux
-  #       run:
-  #         flutter build linux --release
-  #     - name: Zip build
-  #       run: |
-  #           cd ${{ env.BUILD_PATH_LINUX }}
-  #           mv bundle ${{ env.BUILD_NAME_LINUX }}
-  #           zip -r ${{ env.ZIP_NAME }} ${{ env.BUILD_NAME_LINUX }}/
-  #     - name: Create Release
-  #       id: create_release
-  #       uses: actions/create-release@v1
-  #       env:
-  #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  #       with:
-  #         tag_name: ${{ github.ref }}
-  #         release_name: ${{ github.ref }}
-  #         draft: false
-  #         prerelease: false
-  #     - name: Upload Release Asset
-  #       id: upload-release-asset 
-  #       uses: actions/upload-release-asset@v1
-  #       env:
-  #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  #       with:
-  #         upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
-  #         asset_path: ${{ env.BUILD_PATH_LINUX }}${{ env.ZIP_NAME }}
-  #         asset_name: ${{ env.ZIP_NAME }}
-  #         asset_content_type: application/zip
+      - uses: actions/checkout@v1
+      - uses: actions/setup-java@v1
+        with:
+          java-version: '12.x'
+      - uses: subosito/flutter-action@v1
+        with:
+          channel: 'dev'
+      - name: Install packages
+        run:
+          flutter pub get
+      - name: Enable Linux Support
+        run:
+          flutter config --enable-linux-desktop
+      - name: Install dependencies for Linux
+        run: |
+          sudo apt install clang
+          sudo apt install ninja-build
+          sudo apt install libgtk-3-dev
+          sudo apt install libblkid-dev
+      - name: Build Linux
+        run:
+          flutter build linux --release
+      - name: Zip build
+        run: |
+            cd ${{ env.BUILD_PATH_LINUX }}
+            mv bundle ${{ env.BUILD_NAME_LINUX }}
+            zip -r ${{ env.ZIP_NAME }} ${{ env.BUILD_NAME_LINUX }}/
+      - name: Upload Release Asset
+        id: upload-release-asset 
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ needs.create_release.outputs.upload_url }}
+          asset_path: ${{ env.BUILD_PATH_LINUX }}${{ env.ZIP_NAME }}
+          asset_name: ${{ env.ZIP_NAME }}
+          asset_content_type: application/zip
   # deploy_windows:
   #   name: Deploy Windows
   #   runs-on: windows-latest
