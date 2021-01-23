@@ -56,8 +56,7 @@ jobs:
           flutter build macos --release
       - name: Construct full zip name 
         run:
-          echo "APP_VERSION=$(grep '^version:' pubspec.yaml | awk '{ print $2 }' | cut -d '+' -f 1)" >> $GITHUB_ENV
-          echo "ZIP_FULL_NAME=${{ env.ZIP_NAME }}_macos_${{ env.APP_VERSION }}.zip" >> $GITHUB_ENV
+          echo "ZIP_FULL_NAME=${{ env.ZIP_NAME }}_macos.zip" >> $GITHUB_ENV
       - name: Zip build
         run: |
             cd build/macos/Build/Products/Release/
@@ -101,8 +100,7 @@ jobs:
           flutter build linux --release
       - name: Construct full zip name 
         run: 
-          echo "APP_VERSION=$(grep '^version:' pubspec.yaml | awk '{ print $2 }' | cut -d '+' -f 1)" >> $GITHUB_ENV
-          echo "ZIP_FULL_NAME=${{ env.ZIP_NAME }}_linux_${{ env.APP_VERSION }}.zip" >> $GITHUB_ENV
+          echo "ZIP_FULL_NAME=${{ env.ZIP_NAME }}_linux.zip" >> $GITHUB_ENV
       - name: Zip build
         run: |
             cd ${{ env.BUILD_PATH_LINUX }}
@@ -140,8 +138,7 @@ jobs:
           flutter build windows --release
       - name: Construct full zip name 
         run: 
-          echo "APP_VERSION=$(grep '^version:' pubspec.yaml | awk '{ print $2 }' | cut -d '+' -f 1)" >> $GITHUB_ENV
-          echo "ZIP_FULL_NAME=${{ env.ZIP_NAME }}_windows_${{ env.APP_VERSION }}.zip" >> $GITHUB_ENV
+          echo "ZIP_FULL_NAME=${{ env.ZIP_NAME }}_windows.zip" >> $GITHUB_ENV
       - name: Zip build
         run: |
             cd ${{ env.BUILD_PATH_WINDOWS }}
