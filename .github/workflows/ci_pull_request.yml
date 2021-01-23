@@ -49,9 +49,34 @@ jobs:
       - uses: subosito/flutter-action@v1
         with:
           channel: 'dev'
-      - name: Enable windows Support
+      - name: Enable Windows Support
         run:
           flutter config --enable-windows-desktop
       - name: Build app
         run:
           flutter build windows --release
+  build-Linux:
+    name: Build Linux
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/setup-java@v1
+        with:
+          java-version: '12.x'
+      - uses: subosito/flutter-action@v1
+        with:
+          channel: 'dev'
+      - name: Enable Linux Support
+        run:
+          flutter config --enable-linux-desktop
+      - name: Install dependencies for Linux
+        run: |
+          flutter doctor
+          sudo apt install clang
+          sudo apt install ninja-build
+          sudo apt install libgtk-3-dev
+          sudo apt install libblkid-dev
+          flutter doctor
+      - name: Build app
+        run:
+          flutter build linux --release
