@@ -4,7 +4,8 @@ on:
     tags:
       - '*'
 env:
-  BUILD_NAME: Kifu\ Viewer.app
+  BUILD_NAME_MAC: Kifu\ Viewer.app
+  BUILD_NAME_LINUX: kifu_viewer
   ZIP_NAME: kifu_viewer.zip
 jobs:
   # deploy:
@@ -82,7 +83,8 @@ jobs:
       - name: Zip build
         run: |
             cd build/linux/release/bundle
-            zip -r ${{ env.ZIP_NAME }} ${{ env.BUILD_NAME }}
+            ls
+            zip -r ${{ env.ZIP_NAME }} ${{ env.BUILD_NAME_LINUX }}
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
