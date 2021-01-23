@@ -62,7 +62,7 @@ jobs:
     name: Create Release
     runs-on: ubuntu-latest
     outputs:
-      upload_url: ${{ steps.step1.outputs.url }}
+      upload_url: ${{ steps.save_link.outputs.url }}
     steps:
       - name: Create Release
         id: create_release
