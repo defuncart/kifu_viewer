@@ -4,7 +4,9 @@ on:
     tags:
       - '*'
 env:
+  BUILD_PATH_MAC: build/macos/Build/Products/Release/
   BUILD_NAME_MAC: Kifu\ Viewer.app
+  BUILD_PATH_LINUX: build/linux/release/bundle
   BUILD_NAME_LINUX: kifu_viewer
   ZIP_NAME: kifu_viewer.zip
 jobs:
@@ -82,7 +84,7 @@ jobs:
           flutter build linux --release
       - name: Zip build
         run: |
-            cd build/linux/release/bundle
+            cd ${{ env.BUILD_PATH_LINUX }}
             ls
             zip -r ${{ env.ZIP_NAME }} ${{ env.BUILD_NAME_LINUX }}
       - name: Create Release
@@ -102,6 +104,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
-          asset_path: build/macos/Build/Products/Release/${{ env.ZIP_NAME }}
+          asset_path: ${{ BUILD_PATH_LINUX }}/${{ env.ZIP_NAME }}
           asset_name: ${{ env.ZIP_NAME }}
           asset_content_type: application/zip
