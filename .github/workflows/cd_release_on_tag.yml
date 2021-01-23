@@ -1,6 +1,8 @@
 name: cd_release_on_tag
 on:
   push:
+    branches:
+      - "!*"
     tags:
       - '*'
 env:
@@ -56,7 +58,7 @@ jobs:
           flutter build macos --release
       - name: Construct full zip name 
         run: 
-          echo "ZIP_FULL_NAME=${{ env.ZIP_NAME }}_macos_${{ github.ref }}" >> $GITHUB_ENV
+          echo "ZIP_FULL_NAME=${{ env.ZIP_NAME }}_macos_${{ github.event.release.tag_name }}" >> $GITHUB_ENV
       - name: Zip build
         run: |
             cd build/macos/Build/Products/Release/
@@ -100,7 +102,7 @@ jobs:
           flutter build linux --release
       - name: Construct full zip name 
         run: 
-          echo "ZIP_FULL_NAME=${{ env.ZIP_NAME }}_linux_${{ github.ref }}" >> $GITHUB_ENV
+          echo "ZIP_FULL_NAME=${{ env.ZIP_NAME }}_linux_${{ github.event.release.tag_name }}" >> $GITHUB_ENV
       - name: Zip build
         run: |
             cd ${{ env.BUILD_PATH_LINUX }}
@@ -138,7 +140,7 @@ jobs:
           flutter build windows --release
       - name: Construct full zip name 
         run: 
-          echo "ZIP_FULL_NAME=${{ env.ZIP_NAME }}_windows_${{ github.ref }}" >> $GITHUB_ENV
+          echo "ZIP_FULL_NAME=${{ env.ZIP_NAME }}_windows_${{ github.event.release.tag_name }}" >> $GITHUB_ENV
       - name: Zip build
         run: |
             cd ${{ env.BUILD_PATH_WINDOWS }}
