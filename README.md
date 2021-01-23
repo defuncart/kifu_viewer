@@ -8,6 +8,12 @@ Kifu Viewer is a desktop application which allows the loading of `kif` files and
 
 ![](docs/screenshots/01.gif)
 
+## Download
+
+Please see [https://github.com/defuncart/kifu_viewer/releases](https://github.com/defuncart/kifu_viewer/releases) for the latest release.
+
+For Windows, note that C++ redistributable is required to run the app.
+
 ## Getting Started
 
 If you would like to build the app yourself, then you simply need:
@@ -19,6 +25,11 @@ If you would like to build the app yourself, then you simply need:
     - CocoaPods >= 1.10.0
 - windows:
     - Developer Mode enabled
+- linux:
+    - clang
+    - ninja-build
+    - libgtk-3-dev
+    - libblkid-dev
 
 ## Contributing
 
