@@ -15,6 +15,7 @@ dependencies:
   file_selector: ^0.7.0
   file_selector_macos: ^0.0.1
   file_selector_windows: ^0.0.1
+  file_selector_linux: ^0.0.1
   menubar:
     git:
       url: git://github.com/google/flutter-desktop-embedding.git
