@@ -1,4 +1,4 @@
-name: create_release_on_tag
+name: cd_release_on_tag
 on:
   push:
     tags:
