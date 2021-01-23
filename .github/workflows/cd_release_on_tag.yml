@@ -138,13 +138,10 @@ jobs:
       - name: Build Windows
         run:
           flutter build windows --release
-      - name: Construct full zip name 
-        run: 
-          echo "ZIP_FULL_NAME=${{ env.ZIP_NAME }}_windows.zip" >> $GITHUB_ENV
       - name: Zip build
         run: |
             cd ${{ env.BUILD_PATH_WINDOWS }}
-            powershell Compress-Archive Release\* ${{ env.ZIP_FULL_NAME }}
+            powershell Compress-Archive Release\* ${{ env.ZIP_NAME }}_windows.zip
       - name: Upload Release Asset
         id: upload-release-asset 
         uses: actions/upload-release-asset@v1
@@ -152,6 +149,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ needs.create_release.outputs.upload_url }}
-          asset_path: ${{ env.BUILD_PATH_WINDOWS }}${{ env.ZIP_FULL_NAME }}
-          asset_name: ${{ env.ZIP_FULL_NAME }}
+          asset_path: ${{ env.BUILD_PATH_WINDOWS }}${{ env.ZIP_NAME }}_windows.zip
+          asset_name: ${{ env.ZIP_NAME }}_windows.zip
           asset_content_type: application/zip
