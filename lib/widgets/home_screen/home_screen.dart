@@ -74,8 +74,12 @@ class _HomeScreenState extends State<HomeScreen> {
       confirmButtonText: AppLocalizations.generalOpen,
     );
     if (file != null) {
-      final contents = await file.readAsString();
-      _convertFile(contents);
+      try {
+        final contents = await file.readAsString();
+        _convertFile(contents);
+      } on Exception catch (_) {
+        _showInvalidContent();
+      }
     }
   }
 
@@ -98,12 +102,14 @@ class _HomeScreenState extends State<HomeScreen> {
         );
       }
     } else {
-      _showCustomDialog(
+      _showInvalidContent();
+    }
+  }
+
+  void _showInvalidContent() => _showCustomDialog(
         title: AppLocalizations.invalidContentPopupTitle,
         description: AppLocalizations.invalidContentPopupDescription,
       );
-    }
-  }
 
   void _showCustomDialog({
     @required String title,
