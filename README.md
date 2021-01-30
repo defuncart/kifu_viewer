@@ -41,6 +41,8 @@ If you would like to build the app yourself, then you simply need:
     - ninja-build
     - libgtk-3-dev
     - libblkid-dev
+- web:
+    - Chrome
 
 ## Raising Issues and Contributing
 
