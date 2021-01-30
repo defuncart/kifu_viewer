@@ -1,6 +1,6 @@
 import 'package:file_selector_platform_interface/file_selector_platform_interface.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:flutter/services.dart' show LogicalKeyboardKey, Clipboard;
 import 'package:kifu_viewer/localizations.dart';
 import 'package:kifu_viewer/widgets/home_screen/kifu_viewer.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
