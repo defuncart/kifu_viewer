@@ -1,4 +1,5 @@
 import 'package:file_selector_platform_interface/file_selector_platform_interface.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:kifu_viewer/localizations.dart';
@@ -21,25 +22,27 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
 
-    setApplicationMenu([
-      Submenu(
-        label: 'Kifu',
-        children: [
-          MenuItem(
-            label: AppLocalizations.menuBarOpenFile,
-            enabled: true,
-            shortcut: LogicalKeySet(LogicalKeyboardKey.meta, LogicalKeyboardKey.keyO),
-            onClicked: () async => await _selectFile(),
-          ),
-          MenuItem(
-            label: AppLocalizations.menuBarClipboard,
-            enabled: true,
-            shortcut: LogicalKeySet(LogicalKeyboardKey.meta, LogicalKeyboardKey.shift, LogicalKeyboardKey.keyV),
-            onClicked: () async => await _fromClipboard(),
-          ),
-        ],
-      ),
-    ]);
+    if (!kIsWeb) {
+      setApplicationMenu([
+        Submenu(
+          label: 'Kifu',
+          children: [
+            MenuItem(
+              label: AppLocalizations.menuBarOpenFile,
+              enabled: true,
+              shortcut: LogicalKeySet(LogicalKeyboardKey.meta, LogicalKeyboardKey.keyO),
+              onClicked: () async => await _selectFile(),
+            ),
+            MenuItem(
+              label: AppLocalizations.menuBarClipboard,
+              enabled: true,
+              shortcut: LogicalKeySet(LogicalKeyboardKey.meta, LogicalKeyboardKey.shift, LogicalKeyboardKey.keyV),
+              onClicked: () async => await _fromClipboard(),
+            ),
+          ],
+        ),
+      ]);
+    }
   }
 
   @override
