@@ -37,14 +37,14 @@ class _KifuViewerState extends State<KifuViewer> {
   Widget build(BuildContext context) {
     return FocusableActionDetector(
       shortcuts: {
-        if (_canSkipStart) LogicalKeySet(LogicalKeyboardKey.arrowUp): const _NavigateIntent.up(),
-        if (_canRewind) LogicalKeySet(LogicalKeyboardKey.arrowLeft): const _NavigateIntent.left(),
-        if (_canFastForward) LogicalKeySet(LogicalKeyboardKey.arrowRight): const _NavigateIntent.right(),
-        if (_canSkipEnd) LogicalKeySet(LogicalKeyboardKey.arrowDown): const _NavigateIntent.down(),
+        if (_canSkipStart) LogicalKeySet(LogicalKeyboardKey.arrowUp): const _NavigateIntent.start(),
+        if (_canRewind) LogicalKeySet(LogicalKeyboardKey.arrowLeft): const _NavigateIntent.previous(),
+        if (_canFastForward) LogicalKeySet(LogicalKeyboardKey.arrowRight): const _NavigateIntent.next(),
+        if (_canSkipEnd) LogicalKeySet(LogicalKeyboardKey.arrowDown): const _NavigateIntent.end(),
       },
       actions: {
         _NavigateIntent: CallbackAction<_NavigateIntent>(
-          onInvoke: (intent) => _navigate(intent.direction),
+          onInvoke: (intent) => _navigate(intent.navigateType),
         ),
       },
       autofocus: true,
@@ -90,21 +90,19 @@ class _KifuViewerState extends State<KifuViewer> {
                     children: [
                       IconButton(
                         icon: Icon(Icons.skip_previous),
-                        onPressed: _canSkipStart ? () => setState(() => _currentIndex = 0) : null,
+                        onPressed: _canSkipStart ? () => _navigate(_NavigateType.start) : null,
                       ),
                       IconButton(
                         icon: Icon(Icons.fast_rewind),
-                        onPressed: _canRewind ? () => setState(() => _currentIndex--) : null,
+                        onPressed: _canRewind ? () => _navigate(_NavigateType.previous) : null,
                       ),
                       IconButton(
                         icon: Icon(Icons.fast_forward),
-                        onPressed: _canFastForward ? () => setState(() => _currentIndex++) : null,
+                        onPressed: _canFastForward ? () => _navigate(_NavigateType.next) : null,
                       ),
                       IconButton(
                         icon: Icon(Icons.skip_next),
-                        onPressed: _canSkipEnd
-                            ? () => setState(() => _currentIndex = widget.game.gameBoards.length - 1)
-                            : null,
+                        onPressed: _canSkipEnd ? () => _navigate(_NavigateType.end) : null,
                       ),
                     ],
                   )
@@ -117,24 +115,24 @@ class _KifuViewerState extends State<KifuViewer> {
     );
   }
 
-  void _navigate(_Direction direction) {
-    switch (direction) {
-      case _Direction.up:
+  void _navigate(_NavigateType navigateType) {
+    switch (navigateType) {
+      case _NavigateType.start:
         if (_canSkipStart) {
           setState(() => _currentIndex = 0);
         }
         break;
-      case _Direction.left:
+      case _NavigateType.previous:
         if (_canRewind) {
           setState(() => _currentIndex--);
         }
         break;
-      case _Direction.right:
+      case _NavigateType.next:
         if (_canFastForward) {
           setState(() => _currentIndex++);
         }
         break;
-      case _Direction.down:
+      case _NavigateType.end:
         if (_canSkipEnd) {
           setState(() => _currentIndex = widget.game.gameBoards.length - 1);
         }
@@ -143,18 +141,18 @@ class _KifuViewerState extends State<KifuViewer> {
   }
 }
 
-enum _Direction {
-  up,
-  down,
-  left,
-  right,
+enum _NavigateType {
+  start,
+  previous,
+  next,
+  end,
 }
 
 class _NavigateIntent extends Intent {
-  const _NavigateIntent.up() : direction = _Direction.up;
-  const _NavigateIntent.down() : direction = _Direction.down;
-  const _NavigateIntent.left() : direction = _Direction.left;
-  const _NavigateIntent.right() : direction = _Direction.right;
+  const _NavigateIntent.start() : navigateType = _NavigateType.start;
+  const _NavigateIntent.previous() : navigateType = _NavigateType.previous;
+  const _NavigateIntent.next() : navigateType = _NavigateType.next;
+  const _NavigateIntent.end() : navigateType = _NavigateType.end;
 
-  final _Direction direction;
+  final _NavigateType navigateType;
 }
