@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:flutter/services.dart' show LogicalKeyboardKey;
 import 'package:flutter_shogi_board/flutter_shogi_board.dart';
 import 'package:shogi/shogi.dart';
 
