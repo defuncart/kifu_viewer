@@ -59,7 +59,12 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       ),
       body: Center(
-        child: _hasGame ? KifuViewer(game: _game) : Text(AppLocalizations.homeScreenNoKifu),
+        child: _hasGame
+            ? DefaultTextStyle(
+                style: Theme.of(context).textTheme.bodyText2,
+                child: KifuViewer(game: _game),
+              )
+            : Text(AppLocalizations.homeScreenNoKifu),
       ),
     );
   }
