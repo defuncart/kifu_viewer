@@ -101,3 +101,19 @@ class _KifuViewerState extends State<KifuViewer> {
     );
   }
 }
+
+enum _Direction {
+  up,
+  down,
+  left,
+  right,
+}
+
+class _NavigateIntent extends Intent {
+  const _NavigateIntent.up() : direction = _Direction.up;
+  const _NavigateIntent.down() : direction = _Direction.down;
+  const _NavigateIntent.left() : direction = _Direction.left;
+  const _NavigateIntent.right() : direction = _Direction.right;
+
+  final _Direction direction;
+}
