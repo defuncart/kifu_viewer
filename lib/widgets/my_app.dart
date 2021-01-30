@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:kifu_viewer/configs/app_themes.dart';
 import 'package:kifu_viewer/localizations.dart';
@@ -16,6 +17,10 @@ class MyApp extends StatelessWidget {
       supportedLocales: AppLocalizationsDelegate.supportedLocals,
       theme: AppThemes.light,
       debugShowCheckedModeBanner: false,
+      shortcuts: {
+        LogicalKeySet(LogicalKeyboardKey.escape): const DismissIntent(),
+      },
+      actions: {},
       home: HomeScreen(),
     );
   }
