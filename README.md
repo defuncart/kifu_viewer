@@ -44,6 +44,12 @@ If you would like to build the app yourself, then you simply need:
 - web:
     - Chrome
 
+To generate `NotoSansJP-RegularLite.otf`, ensure that `pyftsubset` is installed and that a copy of `NotoSansJP-Regular.otf` resides in `assets_dev/fonts/`. Then run the following command:
+
+```
+pyftsubset assets_dev/fonts/NotoSansJP-Regular.otf --output-file=assets/fonts/NotoSansJP-RegularLite.otf --unicodes-file=assets_dev/fonts/lite_unicode.txt
+```
+
 ## Raising Issues and Contributing
 
 Please report bugs and issues, and raise feature requests [here](https://github.com/defuncart/kifu_viewer/issues).

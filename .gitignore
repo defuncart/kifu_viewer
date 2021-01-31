@@ -39,3 +39,6 @@ app.*.symbols
 
 # Obfuscation related
 app.*.map.json
+
+# Font
+assets_dev/fonts/NotoSansJP-Regular.otf
