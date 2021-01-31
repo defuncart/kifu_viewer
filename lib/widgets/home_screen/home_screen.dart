@@ -1,5 +1,7 @@
+import 'dart:io' show Platform;
+
 import 'package:file_selector_platform_interface/file_selector_platform_interface.dart';
-import 'package:flutter/foundation.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show LogicalKeyboardKey, Clipboard;
 import 'package:kifu_viewer/localizations.dart';
@@ -17,6 +19,8 @@ class _HomeScreenState extends State<HomeScreen> {
   Game _game;
 
   bool get _hasGame => _game != null && _game.gameBoards.isNotEmpty;
+
+  bool get _useCustomFont => kIsWeb || Platform.isLinux;
 
   @override
   void initState() {
@@ -64,7 +68,9 @@ class _HomeScreenState extends State<HomeScreen> {
       body: Center(
         child: _hasGame
             ? DefaultTextStyle(
-                style: Theme.of(context).textTheme.bodyText2,
+                style: Theme.of(context).textTheme.bodyText2.apply(
+                      fontFamily: _useCustomFont ? 'NotoSansJP' : null,
+                    ),
                 child: KifuViewer(game: _game),
               )
             : Text(AppLocalizations.homeScreenNoKifu),
