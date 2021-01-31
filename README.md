@@ -21,7 +21,9 @@ Once a kif file is loaded, moves can be stepped through using the arrow keys:
 
 ## Download
 
-Please see [https://github.com/defuncart/kifu_viewer/releases](https://github.com/defuncart/kifu_viewer/releases) for the latest release.
+Please see [https://github.com/defuncart/kifu_viewer/releases](https://github.com/defuncart/kifu_viewer/releases) for the latest desktop release.
+
+The application may also be run in the browser at [https://defuncart.com/kifu_viewer](https://defuncart.com/kifu_viewer).
 
 For Windows, note that C++ redistributable is required to run the app.
 
