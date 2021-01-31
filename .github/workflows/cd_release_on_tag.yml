@@ -70,8 +70,7 @@ jobs:
             --icon ${{ env.BUILD_NAME_MACOS }} 200 190 \
             --hide-extension ${{ env.BUILD_NAME_MACOS }} \
             --app-drop-link 600 185 \
-            --hdiutil-quiet \
-            "Application-Installer.dmg" \
+            "${{ env.ARTIFACT_NAME }}_macos.dmg" \
             ${{ env.BUILD_NAME_MACOS }}
       - name: Upload Release Asset
         id: upload-release-asset 
