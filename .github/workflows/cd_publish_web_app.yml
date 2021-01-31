@@ -1,0 +1,34 @@
+name: cd_publish_web_app
+on:
+  push:
+    # branches:
+    #   - master
+jobs:
+  build:
+    name: Build + Publish Web
+    env:
+      USER_EMAIL: defuncart@gmail.com
+      USER_NAME: "James Leahy"
+      GH_USERNAME: defuncart
+      REPO_NAME: kifu_viewer
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: subosito/flutter-action@v1
+        with:
+          channel: 'dev'
+      - run: flutter config --enable-web
+      - run: flutter pub get
+      - name: Build + Commit
+        run: |
+          flutter build web --release
+          cd build/web
+          git init
+          git config --global user.email ${{ env.USER_EMAIL }}
+          git config --global user.name ${{ env.USER_NAME }}
+          git status
+          git remote add origin https://${{ secrets.commit }}@github.com/${{ env.GH_USERNAME }}/${{ env.REPO_NAME }}.git
+          git checkout -b gh-pages
+          git add -A
+          git commit -m "`date`"
+          git push origin gh-pages -f
