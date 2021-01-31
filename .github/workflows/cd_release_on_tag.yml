@@ -12,7 +12,7 @@ env:
   BUILD_NAME_LINUX: kifu_viewer
   BUILD_PATH_WINDOWS: build/windows/runner/
   BUILD_NAME_WINDOWS: kifu_viewer
-  ZIP_NAME: kifu_viewer
+  ARTIFACT_NAME: kifu_viewer
 jobs:
   create_release:
     name: Create Release
@@ -55,13 +55,24 @@ jobs:
       - name: Build macOS
         run:
           flutter build macos --release
-      - name: Construct full zip name 
+      - name: Construct full artifact name 
         run:
-          echo "ZIP_FULL_NAME=${{ env.ZIP_NAME }}_macos.zip" >> $GITHUB_ENV
-      - name: Zip build
+          echo "ARTIFACT_FULL_NAME=${{ env.ARTIFACT_NAME }}_macos.dmg" >> $GITHUB_ENV
+      - name: Create dmg
         run: |
+            brew install create-dmg
             cd ${{ env.BUILD_PATH_MACOS }}
-            zip -r ${{ env.ZIP_FULL_NAME }} ${{ env.BUILD_NAME_MACOS }}
+            create-dmg \
+            --volname "Kifu Viewer" \
+            --window-pos 200 120 \
+            --window-size 800 400 \
+            --icon-size 100 \
+            --icon "Application.app" 200 190 \
+            --hide-extension ${{ env.BUILD_NAME_MACOS }} \
+            --app-drop-link 600 185 \
+            --hdiutil-quiet \
+            "Application-Installer.dmg" \
+            ${{ env.BUILD_NAME_MACOS }}
       - name: Upload Release Asset
         id: upload-release-asset 
         uses: actions/upload-release-asset@v1
@@ -69,86 +80,86 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ needs.create_release.outputs.upload_url }}
-          asset_path: ${{ env.BUILD_PATH_MACOS }}${{ env.ZIP_FULL_NAME }}
-          asset_name: ${{ env.ZIP_FULL_NAME }}
-          asset_content_type: application/zip
-  linux:
-    name: Build + Upload Linux
-    runs-on: ubuntu-latest
-    needs: create_release
-    steps:
-      - uses: actions/checkout@v1
-      - uses: actions/setup-java@v1
-        with:
-          java-version: '12.x'
-      - uses: subosito/flutter-action@v1
-        with:
-          channel: 'dev'
-      - name: Install packages
-        run:
-          flutter pub get
-      - name: Enable Linux Support
-        run:
-          flutter config --enable-linux-desktop
-      - name: Install dependencies for Linux
-        run: |
-          sudo apt install clang
-          sudo apt install ninja-build
-          sudo apt install libgtk-3-dev
-          sudo apt install libblkid-dev
-      - name: Build Linux
-        run:
-          flutter build linux --release
-      - name: Construct full zip name 
-        run: 
-          echo "ZIP_FULL_NAME=${{ env.ZIP_NAME }}_linux.zip" >> $GITHUB_ENV
-      - name: Zip build
-        run: |
-            cd ${{ env.BUILD_PATH_LINUX }}
-            mv bundle ${{ env.BUILD_NAME_LINUX }}
-            zip -r ${{ env.ZIP_FULL_NAME }} ${{ env.BUILD_NAME_LINUX }}/
-      - name: Upload Release Asset
-        id: upload-release-asset 
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ needs.create_release.outputs.upload_url }}
-          asset_path: ${{ env.BUILD_PATH_LINUX }}${{ env.ZIP_FULL_NAME }}
-          asset_name: ${{ env.ZIP_FULL_NAME }}
-          asset_content_type: application/zip
-  windows:
-    name: Build + Upload Windows
-    runs-on: windows-latest
-    needs: create_release
-    steps:
-      - uses: actions/checkout@v1
-      - uses: actions/setup-java@v1
-        with:
-          java-version: '12.x'
-      - uses: subosito/flutter-action@v1
-        with:
-          channel: 'dev'
-      - name: Install packages
-        run:
-          flutter pub get
-      - name: Enable Windows Support
-        run:
-          flutter config --enable-windows-desktop
-      - name: Build Windows
-        run:
-          flutter build windows --release
-      - name: Zip build
-        run: |
-            cd ${{ env.BUILD_PATH_WINDOWS }}
-            powershell Compress-Archive Release\* ${{ env.ZIP_NAME }}_windows.zip
-      - name: Upload Release Asset
-        id: upload-release-asset 
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ needs.create_release.outputs.upload_url }}
-          asset_path: ${{ env.BUILD_PATH_WINDOWS }}${{ env.ZIP_NAME }}_windows.zip
-          asset_name: ${{ env.ZIP_NAME }}_windows.zip
-          asset_content_type: application/zip
+          asset_path: ${{ env.BUILD_PATH_MACOS }}${{ env.ARTIFACT_FULL_NAME }}
+          asset_name: ${{ env.ARTIFACT_FULL_NAME }}
+          asset_content_type: application/octet-stream
+  # linux:
+  #   name: Build + Upload Linux
+  #   runs-on: ubuntu-latest
+  #   needs: create_release
+  #   steps:
+  #     - uses: actions/checkout@v1
+  #     - uses: actions/setup-java@v1
+  #       with:
+  #         java-version: '12.x'
+  #     - uses: subosito/flutter-action@v1
+  #       with:
+  #         channel: 'dev'
+  #     - name: Install packages
+  #       run:
+  #         flutter pub get
+  #     - name: Enable Linux Support
+  #       run:
+  #         flutter config --enable-linux-desktop
+  #     - name: Install dependencies for Linux
+  #       run: |
+  #         sudo apt install clang
+  #         sudo apt install ninja-build
+  #         sudo apt install libgtk-3-dev
+  #         sudo apt install libblkid-dev
+  #     - name: Build Linux
+  #       run:
+  #         flutter build linux --release
+  #     - name: Construct full zip name 
+  #       run: 
+  #         echo "ZIP_FULL_NAME=${{ env.ARTIFACT_NAME }}_linux.zip" >> $GITHUB_ENV
+  #     - name: Zip build
+  #       run: |
+  #           cd ${{ env.BUILD_PATH_LINUX }}
+  #           mv bundle ${{ env.BUILD_NAME_LINUX }}
+  #           zip -r ${{ env.ZIP_FULL_NAME }} ${{ env.BUILD_NAME_LINUX }}/
+  #     - name: Upload Release Asset
+  #       id: upload-release-asset 
+  #       uses: actions/upload-release-asset@v1
+  #       env:
+  #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  #       with:
+  #         upload_url: ${{ needs.create_release.outputs.upload_url }}
+  #         asset_path: ${{ env.BUILD_PATH_LINUX }}${{ env.ZIP_FULL_NAME }}
+  #         asset_name: ${{ env.ZIP_FULL_NAME }}
+  #         asset_content_type: application/zip
+  # windows:
+  #   name: Build + Upload Windows
+  #   runs-on: windows-latest
+  #   needs: create_release
+  #   steps:
+  #     - uses: actions/checkout@v1
+  #     - uses: actions/setup-java@v1
+  #       with:
+  #         java-version: '12.x'
+  #     - uses: subosito/flutter-action@v1
+  #       with:
+  #         channel: 'dev'
+  #     - name: Install packages
+  #       run:
+  #         flutter pub get
+  #     - name: Enable Windows Support
+  #       run:
+  #         flutter config --enable-windows-desktop
+  #     - name: Build Windows
+  #       run:
+  #         flutter build windows --release
+  #     - name: Zip build
+  #       run: |
+  #           cd ${{ env.BUILD_PATH_WINDOWS }}
+  #           powershell Compress-Archive Release\* ${{ env.ARTIFACT_NAME }}_windows.zip
+  #     - name: Upload Release Asset
+  #       id: upload-release-asset 
+  #       uses: actions/upload-release-asset@v1
+  #       env:
+  #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  #       with:
+  #         upload_url: ${{ needs.create_release.outputs.upload_url }}
+  #         asset_path: ${{ env.BUILD_PATH_WINDOWS }}${{ env.ARTIFACT_NAME }}_windows.zip
+  #         asset_name: ${{ env.ARTIFACT_NAME }}_windows.zip
+  #         asset_content_type: application/zip
