@@ -1,8 +1,8 @@
 name: cd_publish_web_app
 on:
   push:
-    # branches:
-    #   - master
+    branches:
+      - main
 jobs:
   build:
     name: Build + Publish Web
