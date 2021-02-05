@@ -219,11 +219,13 @@ packages:
     source: sdk
     version: "0.0.0"
   flutter_shogi_board:
-    dependency: "direct main"
+    dependency: "direct overridden"
     description:
-      name: flutter_shogi_board
-      url: "https://pub.dartlang.org"
-    source: hosted
+      path: "."
+      ref: "34af483d2e8617bda29875d6e6dd92793ab0b09e"
+      resolved-ref: "34af483d2e8617bda29875d6e6dd92793ab0b09e"
+      url: "https://github.com/defuncart/flutter_shogi_board"
+    source: git
     version: "0.0.6"
   flutter_test:
     dependency: "direct dev"
@@ -374,8 +376,8 @@ packages:
     dependency: "direct overridden"
     description:
       path: "."
-      ref: HEAD
-      resolved-ref: "41f55a9a41350399fc6d795f7fb1730b3af7798c"
+      ref: ad5b7ad5c2b0bb03a3ee2f1493eb2efc3fdb0c1f
+      resolved-ref: ad5b7ad5c2b0bb03a3ee2f1493eb2efc3fdb0c1f
       url: "https://github.com/defuncart/shogi"
     source: git
     version: "0.0.4"
