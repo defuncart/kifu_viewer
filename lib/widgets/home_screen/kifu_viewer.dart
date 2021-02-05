@@ -63,7 +63,7 @@ class _KifuViewerState extends State<KifuViewer> {
                     child: GestureDetector(
                       child: Text(
                         widget.game.moves[index].asKif,
-                        style: Theme.of(context).textTheme.bodyText2.apply(
+                        style: DefaultTextStyle.of(context).style.copyWith(
                               color: isSelected ? Colors.white : Theme.of(context).textTheme.bodyText2.color,
                             ),
                       ),

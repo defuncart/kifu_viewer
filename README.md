@@ -21,7 +21,9 @@ Once a kif file is loaded, moves can be stepped through using the arrow keys:
 
 ## Download
 
-Please see [https://github.com/defuncart/kifu_viewer/releases](https://github.com/defuncart/kifu_viewer/releases) for the latest release.
+Please see [https://github.com/defuncart/kifu_viewer/releases](https://github.com/defuncart/kifu_viewer/releases) for the latest desktop release.
+
+The application may also be run in the browser at [https://defuncart.com/kifu_viewer](https://defuncart.com/kifu_viewer).
 
 For Windows, note that C++ redistributable is required to run the app.
 
@@ -41,6 +43,14 @@ If you would like to build the app yourself, then you simply need:
     - ninja-build
     - libgtk-3-dev
     - libblkid-dev
+- web:
+    - Chrome
+
+To generate `NotoSansJP-RegularLite.otf`, ensure that `fonttools` is installed and that a copy of `NotoSansJP-Regular.otf` resides in `assets_dev/fonts/`. Then run the following command:
+
+```
+pyftsubset assets_dev/fonts/NotoSansJP-Regular.otf --output-file=assets/fonts/NotoSansJP-RegularLite.otf --unicodes-file=assets_dev/fonts/lite_unicode.txt
+```
 
 ## Raising Issues and Contributing
 

@@ -169,6 +169,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.3+1"
+  file_selector_web:
+    dependency: "direct main"
+    description:
+      name: file_selector_web
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.7.0+1"
   file_selector_windows:
     dependency: "direct main"
     description:
@@ -212,14 +219,21 @@ packages:
     source: sdk
     version: "0.0.0"
   flutter_shogi_board:
-    dependency: "direct main"
+    dependency: "direct overridden"
     description:
-      name: flutter_shogi_board
-      url: "https://pub.dartlang.org"
-    source: hosted
+      path: "."
+      ref: "34af483d2e8617bda29875d6e6dd92793ab0b09e"
+      resolved-ref: "34af483d2e8617bda29875d6e6dd92793ab0b09e"
+      url: "https://github.com/defuncart/flutter_shogi_board"
+    source: git
     version: "0.0.6"
   flutter_test:
     dependency: "direct dev"
+    description: flutter
+    source: sdk
+    version: "0.0.0"
+  flutter_web_plugins:
+    dependency: transitive
     description: flutter
     source: sdk
     version: "0.0.0"
@@ -264,7 +278,7 @@ packages:
       name: js
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.6.2"
+    version: "0.6.3-nullsafety.3"
   matcher:
     dependency: transitive
     description:
@@ -337,6 +351,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.1.0"
+  platform_detect:
+    dependency: transitive
+    description:
+      name: platform_detect
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.4.0"
   plugin_platform_interface:
     dependency: transitive
     description:
@@ -355,8 +376,8 @@ packages:
     dependency: "direct overridden"
     description:
       path: "."
-      ref: HEAD
-      resolved-ref: "41f55a9a41350399fc6d795f7fb1730b3af7798c"
+      ref: ad5b7ad5c2b0bb03a3ee2f1493eb2efc3fdb0c1f
+      resolved-ref: ad5b7ad5c2b0bb03a3ee2f1493eb2efc3fdb0c1f
       url: "https://github.com/defuncart/shogi"
     source: git
     version: "0.0.4"

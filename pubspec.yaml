@@ -16,12 +16,12 @@ dependencies:
   file_selector_macos: ^0.0.1
   file_selector_windows: ^0.0.1
   file_selector_linux: ^0.0.1
+  file_selector_web: ^0.7.0+1
   menubar:
     git:
       url: git://github.com/google/flutter-desktop-embedding.git
       path: plugins/menubar
       ref: 85dde09b702a0cb1f5e1392d2f030bdc3d4e5be3
-  flutter_shogi_board: 0.0.6
   material_design_icons_flutter: ^4.0.5855
 
 dev_dependencies:
@@ -39,9 +39,18 @@ dependency_overrides:
   shogi:
     git:
       url: https://github.com/defuncart/shogi
+      ref: ad5b7ad5c2b0bb03a3ee2f1493eb2efc3fdb0c1f
+  flutter_shogi_board:
+    git:
+      url: https://github.com/defuncart/flutter_shogi_board
+      ref: 34af483d2e8617bda29875d6e6dd92793ab0b09e
 
 flutter:
   uses-material-design: true
+  fonts:
+    - family: NotoSansJP
+      fonts:
+        - asset: assets/fonts/NotoSansJP-RegularLite.otf
 
 flappy_translator:
   input_file_path: "assets_dev/loca/loca.csv"

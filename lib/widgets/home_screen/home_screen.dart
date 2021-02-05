@@ -1,4 +1,7 @@
+import 'dart:io' show Platform;
+
 import 'package:file_selector_platform_interface/file_selector_platform_interface.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show LogicalKeyboardKey, Clipboard;
 import 'package:kifu_viewer/localizations.dart';
@@ -17,29 +20,33 @@ class _HomeScreenState extends State<HomeScreen> {
 
   bool get _hasGame => _game != null && _game.gameBoards.isNotEmpty;
 
+  bool get _useCustomFont => kIsWeb || Platform.isLinux;
+
   @override
   void initState() {
     super.initState();
 
-    setApplicationMenu([
-      Submenu(
-        label: 'Kifu',
-        children: [
-          MenuItem(
-            label: AppLocalizations.menuBarOpenFile,
-            enabled: true,
-            shortcut: LogicalKeySet(LogicalKeyboardKey.meta, LogicalKeyboardKey.keyO),
-            onClicked: () async => await _selectFile(),
-          ),
-          MenuItem(
-            label: AppLocalizations.menuBarClipboard,
-            enabled: true,
-            shortcut: LogicalKeySet(LogicalKeyboardKey.meta, LogicalKeyboardKey.shift, LogicalKeyboardKey.keyV),
-            onClicked: () async => await _fromClipboard(),
-          ),
-        ],
-      ),
-    ]);
+    if (!kIsWeb) {
+      setApplicationMenu([
+        Submenu(
+          label: 'Kifu',
+          children: [
+            MenuItem(
+              label: AppLocalizations.menuBarOpenFile,
+              enabled: true,
+              shortcut: LogicalKeySet(LogicalKeyboardKey.meta, LogicalKeyboardKey.keyO),
+              onClicked: () async => await _selectFile(),
+            ),
+            MenuItem(
+              label: AppLocalizations.menuBarClipboard,
+              enabled: true,
+              shortcut: LogicalKeySet(LogicalKeyboardKey.meta, LogicalKeyboardKey.shift, LogicalKeyboardKey.keyV),
+              onClicked: () async => await _fromClipboard(),
+            ),
+          ],
+        ),
+      ]);
+    }
   }
 
   @override
@@ -59,7 +66,14 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       ),
       body: Center(
-        child: _hasGame ? KifuViewer(game: _game) : Text(AppLocalizations.homeScreenNoKifu),
+        child: _hasGame
+            ? DefaultTextStyle(
+                style: Theme.of(context).textTheme.bodyText2.apply(
+                      fontFamily: _useCustomFont ? 'NotoSansJP' : null,
+                    ),
+                child: KifuViewer(game: _game),
+              )
+            : Text(AppLocalizations.homeScreenNoKifu),
       ),
     );
   }
