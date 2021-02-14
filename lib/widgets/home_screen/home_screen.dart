@@ -57,14 +57,17 @@ class _HomeScreenState extends State<HomeScreen> {
         actions: [
           IconButton(
             icon: Icon(MdiIcons.fileOutline),
+            tooltip: AppLocalizations.homeScreenOpenFileButtonTooltip,
             onPressed: () async => await _selectFile(),
           ),
           IconButton(
             icon: Icon(MdiIcons.clipboardFileOutline),
+            tooltip: AppLocalizations.homeScreenClipboardButtonTooltip,
             onPressed: () async => await _fromClipboard(),
           ),
           IconButton(
             icon: Icon(MdiIcons.information),
+            tooltip: AppLocalizations.homeScreenInfoButtonTooltip,
             onPressed: _showAboutPage,
           ),
         ],
