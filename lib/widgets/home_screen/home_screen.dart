@@ -63,6 +63,10 @@ class _HomeScreenState extends State<HomeScreen> {
             icon: Icon(MdiIcons.clipboardFileOutline),
             onPressed: () async => await _fromClipboard(),
           ),
+          IconButton(
+            icon: Icon(MdiIcons.information),
+            onPressed: _showAboutPage,
+          ),
         ],
       ),
       body: Center(
@@ -145,4 +149,13 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ),
       );
+
+  void _showAboutPage() {
+    showLicensePage(
+      context: context,
+      applicationName: 'Kifu Viewer',
+      applicationVersion: '0.2.0+dev1', //TODO package_info not compatible linux, windows
+      applicationLegalese: 'defuncart',
+    );
+  }
 }
