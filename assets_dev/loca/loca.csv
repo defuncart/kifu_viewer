@@ -5,6 +5,9 @@ generalOpen;Open
 homeScreenNoKifu;Please select a kifu by opening a file or pasting from clipboard.
 menuBarOpenFile;Open...
 menuBarClipboard;Paste from Clipboard
+homeScreenOpenFileButtonTooltip;Open Kifu File
+homeScreenClipboardButtonTooltip;Paste from Clipboard
+homeScreenInfoButtonTooltip;Show Licenses
 invalidContentPopupTitle;Error!
 invalidContentPopupDescription;No moves found. Are you sure the content is valid?
 gameAlreadyOpenPopupTitle;Error!
