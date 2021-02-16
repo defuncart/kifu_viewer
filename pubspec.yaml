@@ -39,11 +39,10 @@ dependency_overrides:
   shogi:
     git:
       url: https://github.com/defuncart/shogi
-      ref: ad5b7ad5c2b0bb03a3ee2f1493eb2efc3fdb0c1f
   flutter_shogi_board:
     git:
       url: https://github.com/defuncart/flutter_shogi_board
-      ref: cea2bed1cdd70bccce79a728d84bff8a423fa904
+      ref: ec6d7f4b5ba2032f3e3c84c0ea2348c86bd73999
 
 flutter:
   uses-material-design: true
