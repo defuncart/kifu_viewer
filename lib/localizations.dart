@@ -19,6 +19,15 @@ class AppLocalizations {
 
   static String get menuBarClipboard => _getText('menuBarClipboard');
 
+  static String get homeScreenOpenFileButtonTooltip =>
+      _getText('homeScreenOpenFileButtonTooltip');
+
+  static String get homeScreenClipboardButtonTooltip =>
+      _getText('homeScreenClipboardButtonTooltip');
+
+  static String get homeScreenInfoButtonTooltip =>
+      _getText('homeScreenInfoButtonTooltip');
+
   static String get invalidContentPopupTitle =>
       _getText('invalidContentPopupTitle');
 
@@ -41,6 +50,9 @@ class AppLocalizations {
         'Please select a kifu by opening a file or pasting from clipboard.',
     'menuBarOpenFile': 'Open...',
     'menuBarClipboard': 'Paste from Clipboard',
+    'homeScreenOpenFileButtonTooltip': 'Open Kifu File',
+    'homeScreenClipboardButtonTooltip': 'Paste from Clipboard',
+    'homeScreenInfoButtonTooltip': 'Show Licenses',
     'invalidContentPopupTitle': 'Error!',
     'invalidContentPopupDescription':
         'No moves found. Are you sure the content is valid?',

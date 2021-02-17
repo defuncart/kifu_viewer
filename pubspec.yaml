@@ -1,7 +1,7 @@
 name: kifu_viewer
 description: An application to view Shogi games by loading Kifu files.
 publish_to: 'none'
-version: 0.1.0+1
+version: 0.2.0+dev1
 
 environment:
   sdk: ">=2.11.0 <3.0.0"
@@ -39,14 +39,15 @@ dependency_overrides:
   shogi:
     git:
       url: https://github.com/defuncart/shogi
-      ref: ad5b7ad5c2b0bb03a3ee2f1493eb2efc3fdb0c1f
   flutter_shogi_board:
     git:
       url: https://github.com/defuncart/flutter_shogi_board
-      ref: 34af483d2e8617bda29875d6e6dd92793ab0b09e
+      ref: ec6d7f4b5ba2032f3e3c84c0ea2348c86bd73999
 
 flutter:
   uses-material-design: true
+  assets:
+    - assets/fonts/OFL.txt
   fonts:
     - family: NotoSansJP
       fonts:
