@@ -16,9 +16,9 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  Game _game;
+  Game? _game;
 
-  bool get _hasGame => _game != null && _game.gameBoards.isNotEmpty;
+  bool get _hasGame => _game != null && _game!.gameBoards.isNotEmpty;
 
   bool get _useCustomFont => kIsWeb || Platform.isLinux;
 
@@ -75,10 +75,10 @@ class _HomeScreenState extends State<HomeScreen> {
       body: Center(
         child: _hasGame
             ? DefaultTextStyle(
-                style: Theme.of(context).textTheme.bodyText2.apply(
+                style: Theme.of(context).textTheme.bodyText2!.apply(
                       fontFamily: _useCustomFont ? 'NotoSansJP' : null,
                     ),
-                child: KifuViewer(game: _game),
+                child: KifuViewer(game: _game!),
               )
             : Text(AppLocalizations.homeScreenNoKifu),
       ),
@@ -107,13 +107,13 @@ class _HomeScreenState extends State<HomeScreen> {
   Future<void> _fromClipboard() async {
     final data = await Clipboard.getData('text/plain');
     if (data != null) {
-      _convertFile(data.text);
+      _convertFile(data.text!);
     }
   }
 
   void _convertFile(String file) {
-    final game = Game.fromKif(file);
-    if (game != null) {
+    try {
+      final game = Game.fromKif(file);
       if (game != _game) {
         setState(() => _game = game);
       } else {
@@ -122,7 +122,7 @@ class _HomeScreenState extends State<HomeScreen> {
           description: AppLocalizations.gameAlreadyOpenPopupDescription,
         );
       }
-    } else {
+    } on ArgumentError catch (_) {
       _showInvalidContent();
     }
   }
@@ -133,8 +133,8 @@ class _HomeScreenState extends State<HomeScreen> {
       );
 
   void _showCustomDialog({
-    @required String title,
-    @required String description,
+    required String title,
+    required String description,
   }) =>
       showDialog(
         context: context,

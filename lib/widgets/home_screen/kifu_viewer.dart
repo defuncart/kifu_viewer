@@ -5,8 +5,8 @@ import 'package:shogi/shogi.dart';
 
 class KifuViewer extends StatefulWidget {
   KifuViewer({
-    Key key,
-    @required this.game,
+    Key? key,
+    required this.game,
   }) : super(key: key);
 
   final Game game;
@@ -62,9 +62,9 @@ class _KifuViewerState extends State<KifuViewer> {
                     color: isSelected ? Theme.of(context).accentColor : Colors.transparent,
                     child: GestureDetector(
                       child: Text(
-                        widget.game.moves[index].asKif,
+                        widget.game.moves[index].asKif!,
                         style: DefaultTextStyle.of(context).style.copyWith(
-                              color: isSelected ? Colors.white : Theme.of(context).textTheme.bodyText2.color,
+                              color: isSelected ? Colors.white : Theme.of(context).textTheme.bodyText2!.color,
                             ),
                       ),
                       onTap: () => setState(() => _currentIndex = index + 1),
