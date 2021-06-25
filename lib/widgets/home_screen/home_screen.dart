@@ -8,6 +8,7 @@ import 'package:kifu_viewer/localizations.dart';
 import 'package:kifu_viewer/widgets/home_screen/kifu_viewer.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:menubar/menubar.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:shogi/shogi.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -153,11 +154,12 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       );
 
-  void _showAboutPage() {
+  void _showAboutPage() async {
+    final packageInfo = await PackageInfo.fromPlatform();
     showLicensePage(
       context: context,
       applicationName: 'Kifu Viewer',
-      applicationVersion: '0.2.0+dev1', //TODO package_info not compatible linux, windows
+      applicationVersion: packageInfo.version,
       applicationLegalese: 'defuncart',
     );
   }
