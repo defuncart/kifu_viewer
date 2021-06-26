@@ -45,7 +45,7 @@ jobs:
           java-version: '12.x'
       - uses: subosito/flutter-action@v1
         with:
-          channel: 'dev'
+          channel: 'stable'
       - name: Install packages
         run:
           flutter pub get
@@ -93,7 +93,7 @@ jobs:
           java-version: '12.x'
       - uses: subosito/flutter-action@v1
         with:
-          channel: 'dev'
+          channel: 'stable'
       - name: Install packages
         run:
           flutter pub get
@@ -138,7 +138,7 @@ jobs:
           java-version: '12.x'
       - uses: subosito/flutter-action@v1
         with:
-          channel: 'dev'
+          channel: 'stable'
       - name: Install packages
         run:
           flutter pub get

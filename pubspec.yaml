@@ -4,33 +4,35 @@ publish_to: 'none'
 version: 0.2.0+dev1
 
 environment:
-  sdk: ">=2.11.0 <3.0.0"
-  flutter: ">=1.23.0 <2.0.0"
+  sdk: '>=2.12.0 <3.0.0'
+  flutter: ">=2.0.0 <3.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
-  file_selector: ^0.7.0
-  file_selector_macos: ^0.0.1
-  file_selector_windows: ^0.0.1
-  file_selector_linux: ^0.0.1
-  file_selector_web: ^0.7.0+1
+  file_selector: ^0.8.2
+  file_selector_macos: ^0.0.4
+  file_selector_windows: ^0.0.2
+  file_selector_linux: ^0.0.2
+  file_selector_web: ^0.8.1
   menubar:
     git:
       url: git://github.com/google/flutter-desktop-embedding.git
       path: plugins/menubar
       ref: 85dde09b702a0cb1f5e1392d2f030bdc3d4e5be3
-  material_design_icons_flutter: ^4.0.5855
+  material_design_icons_flutter: ^5.0.5955-rc.1
+  package_info_plus: ^1.0.3
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flappy_translator: ^1.5.0
+  flappy_translator: ^2.0.0-nullsafety.2
   flutter_analysis_options:
     git:
       url: https://github.com/defuncart/flutter_analysis_options
+      ref: bb711f33f039e353dd7f6c373bb85361ef1739ff
   flutter_launcher_icons:
     git:
       url: https://github.com/dirkbo/flutter_launcher_icons
@@ -39,10 +41,11 @@ dependency_overrides:
   shogi:
     git:
       url: https://github.com/defuncart/shogi
+      ref: main
   flutter_shogi_board:
     git:
       url: https://github.com/defuncart/flutter_shogi_board
-      ref: ec6d7f4b5ba2032f3e3c84c0ea2348c86bd73999
+      ref: main
 
 flutter:
   uses-material-design: true
