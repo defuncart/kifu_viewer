@@ -123,6 +123,7 @@ class _HomeScreenState extends State<HomeScreen> {
           description: AppLocalizations.gameAlreadyOpenPopupDescription,
         );
       }
+      // ignore: avoid_catching_errors
     } on ArgumentError catch (_) {
       _showInvalidContent();
     }

@@ -29,9 +29,10 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flappy_translator: ^2.0.0-nullsafety.2
-  # flutter_analysis_options:
-  #   git:
-  #     url: https://github.com/defuncart/flutter_analysis_options
+  flutter_analysis_options:
+    git:
+      url: https://github.com/defuncart/flutter_analysis_options
+      ref: bb711f33f039e353dd7f6c373bb85361ef1739ff
   flutter_launcher_icons:
     git:
       url: https://github.com/dirkbo/flutter_launcher_icons
@@ -40,11 +41,11 @@ dependency_overrides:
   shogi:
     git:
       url: https://github.com/defuncart/shogi
-      ref: feature/null-safety
+      ref: main
   flutter_shogi_board:
     git:
       url: https://github.com/defuncart/flutter_shogi_board
-      ref: feature/null-safety
+      ref: main
 
 flutter:
   uses-material-design: true
