@@ -11,7 +11,7 @@ jobs:
           java-version: '12.x'
       - uses: subosito/flutter-action@v1
         with:
-          channel: 'dev'
+          channel: 'stable'
       - name: Install packages
         run:
           flutter pub get
@@ -31,7 +31,7 @@ jobs:
           java-version: '12.x'
       - uses: subosito/flutter-action@v1
         with:
-          channel: 'dev'
+          channel: 'stable'
       - name: Enable macOS Support
         run:
           flutter config --enable-macos-desktop
@@ -48,7 +48,7 @@ jobs:
           java-version: '12.x'
       - uses: subosito/flutter-action@v1
         with:
-          channel: 'dev'
+          channel: 'stable'
       - name: Enable Windows Support
         run:
           flutter config --enable-windows-desktop
@@ -65,7 +65,7 @@ jobs:
           java-version: '12.x'
       - uses: subosito/flutter-action@v1
         with:
-          channel: 'dev'
+          channel: 'stable'
       - name: Enable Linux Support
         run:
           flutter config --enable-linux-desktop
@@ -90,10 +90,7 @@ jobs:
           java-version: '12.x'
       - uses: subosito/flutter-action@v1
         with:
-          channel: 'dev'
-      - name: Enable Web Support
-        run:
-          flutter config --enable-web
+          channel: 'stable'
       - name: Build app
         run:
           flutter build web --release
