@@ -31,11 +31,11 @@ For Windows, note that C++ redistributable is required to run the app.
 
 If you would like to build the app yourself, then you simply need:
 
-- Flutter dev >= 2.0
-- Dart >= 2.12
+- Flutter >= 2.10
+- Dart >= 2.16
 - macOS:
-    - Xcode >= 12.4
-    - CocoaPods >= 1.10.0
+    - Xcode >= 13
+    - CocoaPods >= 1.11.2
 - windows:
     - Developer Mode enabled
 - linux:

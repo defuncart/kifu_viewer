@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.15)
+cmake_minimum_required(VERSION 3.14)
 project(kifu_viewer LANGUAGES CXX)
 
 set(BINARY_NAME "kifu_viewer")

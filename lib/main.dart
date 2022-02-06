@@ -15,7 +15,7 @@ void main() async {
     ]);
   });
 
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class _CustomLicenseEntry extends LicenseEntry {
@@ -24,6 +24,9 @@ class _CustomLicenseEntry extends LicenseEntry {
     this.paragraphs,
   );
 
+  @override
   final Iterable<String> packages;
+
+  @override
   final Iterable<LicenseParagraph> paragraphs;
 }

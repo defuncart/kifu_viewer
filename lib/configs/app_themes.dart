@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 
 /// A config of themes used in the app
@@ -8,7 +6,10 @@ class AppThemes {
 
   static final light = ThemeData.light().copyWith(
     scaffoldBackgroundColor: _lightAppColors.scaffoldBackgroundColor,
-    accentColor: _lightAppColors.accentColor,
+    colorScheme: const ColorScheme.light().copyWith(
+      primary: _lightAppColors.accentColor,
+      secondary: _lightAppColors.accentColor,
+    ),
     appBarTheme: AppBarTheme(
       color: _lightAppColors.appBarColor,
     ),

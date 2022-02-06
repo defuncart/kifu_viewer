@@ -47,17 +47,13 @@ jobs:
         with:
           channel: 'stable'
       - name: Install packages
-        run:
-          flutter pub get
+        run: flutter pub get
       - name: Enable macOS Support
-        run:
-          flutter config --enable-macos-desktop
+        run: flutter config --enable-macos-desktop
       - name: Build macOS
-        run:
-          flutter build macos --release
+        run: flutter build macos --release
       - name: Construct full artifact name 
-        run:
-          echo "ARTIFACT_FULL_NAME=${{ env.ARTIFACT_NAME }}_macos.dmg" >> $GITHUB_ENV
+        run: echo "ARTIFACT_FULL_NAME=${{ env.ARTIFACT_NAME }}_macos.dmg" >> $GITHUB_ENV
       - name: Create dmg
         run: |
             brew install create-dmg
@@ -95,11 +91,9 @@ jobs:
         with:
           channel: 'stable'
       - name: Install packages
-        run:
-          flutter pub get
+        run: flutter pub get
       - name: Enable Linux Support
-        run:
-          flutter config --enable-linux-desktop
+        run: flutter config --enable-linux-desktop
       - name: Install dependencies for Linux
         run: |
           sudo apt install clang
@@ -107,11 +101,9 @@ jobs:
           sudo apt install libgtk-3-dev
           sudo apt install libblkid-dev
       - name: Build Linux
-        run:
-          flutter build linux --release
+        run: flutter build linux --release
       - name: Construct full artifact name 
-        run: 
-          echo "ARTIFACT_FULL_NAME=${{ env.ARTIFACT_NAME }}_linux.zip" >> $GITHUB_ENV
+        run: echo "ARTIFACT_FULL_NAME=${{ env.ARTIFACT_NAME }}_linux.zip" >> $GITHUB_ENV
       - name: Create zip
         run: |
             cd ${{ env.BUILD_PATH_LINUX }}
@@ -140,14 +132,9 @@ jobs:
         with:
           channel: 'stable'
       - name: Install packages
-        run:
-          flutter pub get
-      - name: Enable Windows Support
-        run:
-          flutter config --enable-windows-desktop
+        run: flutter pub get
       - name: Build Windows
-        run:
-          flutter build windows --release
+        run: flutter build windows --release
       - name: Create zip
         run: |
             cd ${{ env.BUILD_PATH_WINDOWS }}
