@@ -49,9 +49,6 @@ jobs:
       - uses: subosito/flutter-action@v1
         with:
           channel: 'stable'
-      - name: Enable Windows Support
-        run:
-          flutter config --enable-windows-desktop
       - name: Build app
         run:
           flutter build windows --release
