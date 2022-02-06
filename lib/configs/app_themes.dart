@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 
 /// A config of themes used in the app
@@ -8,9 +6,14 @@ class AppThemes {
 
   static final light = ThemeData.light().copyWith(
     scaffoldBackgroundColor: _lightAppColors.scaffoldBackgroundColor,
-    accentColor: _lightAppColors.accentColor,
+    colorScheme: const ColorScheme.light().copyWith(
+      secondary: _lightAppColors.accentColor,
+    ),
     appBarTheme: AppBarTheme(
       color: _lightAppColors.appBarColor,
+    ),
+    progressIndicatorTheme: ProgressIndicatorThemeData(
+      color: _lightAppColors.accentColor,
     ),
     //TODO this is because _PackagesView from about.dart uses card color for background color
     cardColor: _lightAppColors.scaffoldBackgroundColor,

@@ -4,9 +4,9 @@ import 'package:flutter_shogi_board/flutter_shogi_board.dart';
 import 'package:shogi/shogi.dart';
 
 class KifuViewer extends StatefulWidget {
-  KifuViewer({
-    Key? key,
+  const KifuViewer({
     required this.game,
+    Key? key,
   }) : super(key: key);
 
   final Game game;
@@ -52,14 +52,14 @@ class _KifuViewerState extends State<KifuViewer> {
         padding: const EdgeInsets.all(8.0),
         child: Row(
           children: [
-            Container(
+            SizedBox(
               width: 120,
               child: ListView.builder(
                 itemCount: widget.game.moves.length,
                 itemBuilder: (_, index) {
                   final isSelected = index == _currentIndex - 1;
                   return Container(
-                    color: isSelected ? Theme.of(context).accentColor : Colors.transparent,
+                    color: isSelected ? Theme.of(context).colorScheme.secondary : Colors.transparent,
                     child: GestureDetector(
                       child: Text(
                         widget.game.moves[index].asKif!,
@@ -73,8 +73,8 @@ class _KifuViewerState extends State<KifuViewer> {
                 },
               ),
             ),
-            VerticalDivider(),
-            SizedBox(width: 16),
+            const VerticalDivider(),
+            const SizedBox(width: 16),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -84,24 +84,24 @@ class _KifuViewerState extends State<KifuViewer> {
                       gameBoard: gameBoard,
                     ),
                   ),
-                  SizedBox(height: 16),
+                  const SizedBox(height: 16),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       IconButton(
-                        icon: Icon(Icons.skip_previous),
+                        icon: const Icon(Icons.skip_previous),
                         onPressed: _canSkipStart ? () => _navigate(_NavigateType.start) : null,
                       ),
                       IconButton(
-                        icon: Icon(Icons.fast_rewind),
+                        icon: const Icon(Icons.fast_rewind),
                         onPressed: _canRewind ? () => _navigate(_NavigateType.previous) : null,
                       ),
                       IconButton(
-                        icon: Icon(Icons.fast_forward),
+                        icon: const Icon(Icons.fast_forward),
                         onPressed: _canFastForward ? () => _navigate(_NavigateType.next) : null,
                       ),
                       IconButton(
-                        icon: Icon(Icons.skip_next),
+                        icon: const Icon(Icons.skip_next),
                         onPressed: _canSkipEnd ? () => _navigate(_NavigateType.end) : null,
                       ),
                     ],

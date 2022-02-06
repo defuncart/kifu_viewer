@@ -6,11 +6,13 @@ import 'package:kifu_viewer/localizations.dart';
 import 'package:kifu_viewer/widgets/home_screen/home_screen.dart';
 
 class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      localizationsDelegates: [
-        const AppLocalizationsDelegate(),
+      localizationsDelegates: const [
+        AppLocalizationsDelegate(),
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
       ],
@@ -20,8 +22,8 @@ class MyApp extends StatelessWidget {
       shortcuts: {
         LogicalKeySet(LogicalKeyboardKey.escape): const DismissIntent(),
       },
-      actions: {},
-      home: HomeScreen(),
+      actions: const {},
+      home: const HomeScreen(),
     );
   }
 }
