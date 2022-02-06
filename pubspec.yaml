@@ -4,26 +4,25 @@ publish_to: 'none'
 version: 0.2.0+dev1
 
 environment:
-  sdk: '>=2.12.0 <3.0.0'
-  flutter: ">=2.0.0 <3.0.0"
+  sdk: '>=2.16.0 <3.0.0'
+  flutter: ">=2.10.0 <3.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
-  file_selector: ^0.8.2
-  file_selector_macos: ^0.0.4
-  file_selector_windows: ^0.0.2
-  file_selector_linux: ^0.0.2
-  file_selector_web: ^0.8.1
+  file_selector:
+  file_selector_macos:
+  file_selector_windows:
+  file_selector_linux:
+  file_selector_web:
   menubar:
     git:
       url: git://github.com/google/flutter-desktop-embedding.git
       path: plugins/menubar
-      ref: 85dde09b702a0cb1f5e1392d2f030bdc3d4e5be3
-  material_design_icons_flutter: ^5.0.5955-rc.1
-  package_info_plus: ^1.0.3
+  material_design_icons_flutter:
+  package_info_plus:
 
 dev_dependencies:
   flutter_test:
