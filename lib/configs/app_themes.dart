@@ -7,13 +7,11 @@ class AppThemes {
   static final light = ThemeData.light().copyWith(
     scaffoldBackgroundColor: _lightAppColors.scaffoldBackgroundColor,
     colorScheme: const ColorScheme.light().copyWith(
+      primary: _lightAppColors.accentColor,
       secondary: _lightAppColors.accentColor,
     ),
     appBarTheme: AppBarTheme(
       color: _lightAppColors.appBarColor,
-    ),
-    progressIndicatorTheme: ProgressIndicatorThemeData(
-      color: _lightAppColors.accentColor,
     ),
     //TODO this is because _PackagesView from about.dart uses card color for background color
     cardColor: _lightAppColors.scaffoldBackgroundColor,
