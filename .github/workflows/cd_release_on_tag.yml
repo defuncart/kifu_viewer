@@ -8,7 +8,7 @@ on:
 env:
   BUILD_PATH_MACOS: build/macos/Build/Products/Release/
   BUILD_NAME_MACOS: Kifu\ Viewer.app
-  BUILD_PATH_LINUX: build/linux/release/
+  BUILD_PATH_LINUX: build/linux/x64/release/
   BUILD_NAME_LINUX: kifu_viewer
   BUILD_PATH_WINDOWS: build/windows/runner/
   BUILD_NAME_WINDOWS: kifu_viewer
