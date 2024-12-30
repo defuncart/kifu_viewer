@@ -66,6 +66,9 @@ flappy_translator:
 flutter_launcher_icons:
   android: false
   ios: false
+  image_path: "assets_dev/icon/icon.png"
   macos:
     generate: true
     image_path: "assets_dev/icon/icon_macos.png"
+  web:
+    generate: true
