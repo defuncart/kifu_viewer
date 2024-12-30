@@ -11,4 +11,4 @@ PRODUCT_NAME = Kifu Viewer
 PRODUCT_BUNDLE_IDENTIFIER = com.defuncart.kifuviewer
 
 // The copyright displayed in application information
-PRODUCT_COPYRIGHT = Copyright © 2022 defuncart. All rights reserved.
+PRODUCT_COPYRIGHT = Copyright © 2024 defuncart. All rights reserved.

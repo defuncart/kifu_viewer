@@ -12,8 +12,8 @@ dependencies:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
-  flutter_shogi_board:
   shogi:
+  flutter_shogi_board:
   file_selector:
   file_selector_macos:
   file_selector_windows:
@@ -32,8 +32,6 @@ dev_dependencies:
   flappy_translator: ^2.0.0-nullsafety.2
   flutter_lints:
   flutter_launcher_icons:
-    git:
-      url: https://github.com/dirkbo/flutter_launcher_icons
 
 dependency_overrides:
   shogi:
@@ -65,8 +63,9 @@ flappy_translator:
   use_single_quotes: true
   replace_no_break_spaces: false
 
-flutter_icons:
+flutter_launcher_icons:
   android: false
   ios: false
-  macos: true
-  image_path: "assets_dev/icon/icon_macos.png"
+  macos:
+    generate: true
+    image_path: "assets_dev/icon/icon_macos.png"
