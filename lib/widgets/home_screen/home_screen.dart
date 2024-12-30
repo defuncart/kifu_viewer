@@ -31,20 +31,18 @@ class _HomeScreenState extends State<HomeScreen> {
 
     if (!kIsWeb) {
       setApplicationMenu([
-        Submenu(
+        NativeSubmenu(
           label: 'Kifu',
           children: [
-            MenuItem(
+            NativeMenuItem(
               label: AppLocalizations.menuBarOpenFile,
-              enabled: true,
               shortcut: LogicalKeySet(LogicalKeyboardKey.meta, LogicalKeyboardKey.keyO),
-              onClicked: () async => await _selectFile(),
+              onSelected: () async => await _selectFile(),
             ),
-            MenuItem(
+            NativeMenuItem(
               label: AppLocalizations.menuBarClipboard,
-              enabled: true,
               shortcut: LogicalKeySet(LogicalKeyboardKey.meta, LogicalKeyboardKey.shift, LogicalKeyboardKey.keyV),
-              onClicked: () async => await _fromClipboard(),
+              onSelected: () async => await _fromClipboard(),
             ),
           ],
         ),
