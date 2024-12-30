@@ -42,3 +42,6 @@ app.*.map.json
 
 # Font
 assets_dev/fonts/NotoSansJP-Regular.otf
+
+# FVM Version Cache
+.fvm/
