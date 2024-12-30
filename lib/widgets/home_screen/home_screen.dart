@@ -80,7 +80,7 @@ class _HomeScreenState extends State<HomeScreen> {
       body: Center(
         child: _hasGame
             ? DefaultTextStyle(
-                style: Theme.of(context).textTheme.bodyText2!.apply(
+                style: Theme.of(context).textTheme.bodyMedium!.apply(
                       fontFamily: _useCustomFont ? 'NotoSansJP' : null,
                     ),
                 child: KifuViewer(game: _game!),
@@ -151,9 +151,6 @@ class _HomeScreenState extends State<HomeScreen> {
             TextButton(
               child: Text(context.l10n.generalOk.toUpperCase()),
               onPressed: () => Navigator.of(context).pop(),
-              style: TextButton.styleFrom(
-                primary: Theme.of(context).colorScheme.secondary,
-              ),
             ),
           ],
         ),

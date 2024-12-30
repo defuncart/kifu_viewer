@@ -59,12 +59,13 @@ class _KifuViewerState extends State<KifuViewer> {
                 itemBuilder: (_, index) {
                   final isSelected = index == _currentIndex - 1;
                   return Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 2),
                     color: isSelected ? Theme.of(context).colorScheme.secondary : Colors.transparent,
                     child: GestureDetector(
                       child: Text(
                         widget.game.moves[index].asKif!,
                         style: DefaultTextStyle.of(context).style.copyWith(
-                              color: isSelected ? Colors.white : Theme.of(context).textTheme.bodyText2!.color,
+                              color: isSelected ? Colors.white : Theme.of(context).textTheme.bodyMedium!.color,
                             ),
                       ),
                       onTap: () => setState(() => _currentIndex = index + 1),
