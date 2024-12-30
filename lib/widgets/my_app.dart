@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:kifu_viewer/configs/app_themes.dart';
-import 'package:kifu_viewer/localizations.dart';
 import 'package:kifu_viewer/widgets/home_screen/home_screen.dart';
 
 class MyApp extends StatelessWidget {
@@ -11,12 +10,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      localizationsDelegates: const [
-        AppLocalizationsDelegate(),
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-      ],
-      supportedLocales: AppLocalizationsDelegate.supportedLocals,
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
       theme: AppThemes.light,
       debugShowCheckedModeBanner: false,
       shortcuts: {

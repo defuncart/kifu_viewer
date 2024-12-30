@@ -40,7 +40,8 @@ app.*.symbols
 # Obfuscation related
 app.*.map.json
 
-# Font
+# Local Assets
+assets_dev/l10n/
 assets_dev/fonts/NotoSansJP-Regular.otf
 
 # FVM Version Cache

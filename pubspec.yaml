@@ -29,8 +29,8 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flappy_translator: ^2.0.0-nullsafety.2
-  flutter_lints:
+  arb_generator:
+  flutter_lints: ^5.0.0
   flutter_launcher_icons:
 
 dependency_overrides:
@@ -45,6 +45,7 @@ dependency_overrides:
 
 flutter:
   uses-material-design: true
+  generate: true
   assets:
     - assets/fonts/OFL.txt
   fonts:
@@ -52,16 +53,13 @@ flutter:
       fonts:
         - asset: assets/fonts/NotoSansJP-RegularLite.otf
 
-flappy_translator:
-  input_file_path: "assets_dev/loca/loca.csv"
-  output_dir: "lib"
-  file_name: "localizations"
-  class_name: "AppLocalizations"
-  delimiter: ";"
-  start_index: 1
-  depend_on_context: false
-  use_single_quotes: true
-  replace_no_break_spaces: false
+arb_generator:
+  input_filepath: "assets_dev/loca/loca.csv"
+  output_directory: "assets_dev/l10n"
+  filename_prepend: ""
+  csv_settings:
+    delimiter: ";"
+    base_index: 1
 
 flutter_launcher_icons:
   android: false

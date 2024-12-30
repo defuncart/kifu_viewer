@@ -4,7 +4,7 @@ import 'package:file_selector_platform_interface/file_selector_platform_interfac
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show LogicalKeyboardKey, Clipboard;
-import 'package:kifu_viewer/localizations.dart';
+import 'package:kifu_viewer/l10n/l10n_extension.dart';
 import 'package:kifu_viewer/widgets/home_screen/kifu_viewer.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:menubar/menubar.dart';
@@ -30,23 +30,27 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
 
     if (!kIsWeb) {
-      setApplicationMenu([
-        NativeSubmenu(
-          label: 'Kifu',
-          children: [
-            NativeMenuItem(
-              label: AppLocalizations.menuBarOpenFile,
-              shortcut: LogicalKeySet(LogicalKeyboardKey.meta, LogicalKeyboardKey.keyO),
-              onSelected: () async => await _selectFile(),
-            ),
-            NativeMenuItem(
-              label: AppLocalizations.menuBarClipboard,
-              shortcut: LogicalKeySet(LogicalKeyboardKey.meta, LogicalKeyboardKey.shift, LogicalKeyboardKey.keyV),
-              onSelected: () async => await _fromClipboard(),
-            ),
-          ],
-        ),
-      ]);
+      Future.microtask(() {
+        // ignore: use_build_context_synchronously
+        final l10n = context.l10n;
+        setApplicationMenu([
+          NativeSubmenu(
+            label: 'Kifu',
+            children: [
+              NativeMenuItem(
+                label: l10n.menuBarOpenFile,
+                shortcut: LogicalKeySet(LogicalKeyboardKey.meta, LogicalKeyboardKey.keyO),
+                onSelected: () async => await _selectFile(),
+              ),
+              NativeMenuItem(
+                label: l10n.menuBarClipboard,
+                shortcut: LogicalKeySet(LogicalKeyboardKey.meta, LogicalKeyboardKey.shift, LogicalKeyboardKey.keyV),
+                onSelected: () async => await _fromClipboard(),
+              ),
+            ],
+          ),
+        ]);
+      });
     }
   }
 
@@ -54,21 +58,21 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(AppLocalizations.appTitle),
+        title: Text(context.l10n.appTitle),
         actions: [
           IconButton(
-            icon: const Icon(MdiIcons.fileOutline),
-            tooltip: AppLocalizations.homeScreenOpenFileButtonTooltip,
+            icon: Icon(MdiIcons.fileOutline),
+            tooltip: context.l10n.homeScreenOpenFileButtonTooltip,
             onPressed: () async => await _selectFile(),
           ),
           IconButton(
-            icon: const Icon(MdiIcons.clipboardFileOutline),
-            tooltip: AppLocalizations.homeScreenClipboardButtonTooltip,
+            icon: Icon(MdiIcons.clipboardFileOutline),
+            tooltip: context.l10n.homeScreenClipboardButtonTooltip,
             onPressed: () async => await _fromClipboard(),
           ),
           IconButton(
-            icon: const Icon(MdiIcons.information),
-            tooltip: AppLocalizations.homeScreenInfoButtonTooltip,
+            icon: Icon(Icons.info),
+            tooltip: context.l10n.homeScreenInfoButtonTooltip,
             onPressed: _showAboutPage,
           ),
         ],
@@ -81,7 +85,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                 child: KifuViewer(game: _game!),
               )
-            : Text(AppLocalizations.homeScreenNoKifu),
+            : Text(context.l10n.homeScreenNoKifu),
       ),
     );
   }
@@ -93,7 +97,7 @@ class _HomeScreenState extends State<HomeScreen> {
           extensions: ['kif'],
         ),
       ],
-      confirmButtonText: AppLocalizations.generalOpen,
+      confirmButtonText: context.l10n.generalOpen,
     );
     if (file != null) {
       try {
@@ -119,8 +123,8 @@ class _HomeScreenState extends State<HomeScreen> {
         setState(() => _game = game);
       } else {
         _showCustomDialog(
-          title: AppLocalizations.gameAlreadyOpenPopupTitle,
-          description: AppLocalizations.gameAlreadyOpenPopupDescription,
+          title: context.l10n.gameAlreadyOpenPopupTitle,
+          description: context.l10n.gameAlreadyOpenPopupDescription,
         );
       }
       // ignore: avoid_catching_errors
@@ -130,8 +134,8 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void _showInvalidContent() => _showCustomDialog(
-        title: AppLocalizations.invalidContentPopupTitle,
-        description: AppLocalizations.invalidContentPopupDescription,
+        title: context.l10n.invalidContentPopupTitle,
+        description: context.l10n.invalidContentPopupDescription,
       );
 
   void _showCustomDialog({
@@ -145,7 +149,7 @@ class _HomeScreenState extends State<HomeScreen> {
           content: Text(description),
           actions: [
             TextButton(
-              child: Text(AppLocalizations.generalOk.toUpperCase()),
+              child: Text(context.l10n.generalOk.toUpperCase()),
               onPressed: () => Navigator.of(context).pop(),
               style: TextButton.styleFrom(
                 primary: Theme.of(context).colorScheme.secondary,
