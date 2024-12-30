@@ -1,6 +1,6 @@
 import 'dart:io' show Platform;
 
-import 'package:file_selector_platform_interface/file_selector_platform_interface.dart';
+import 'package:file_selector/file_selector.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show LogicalKeyboardKey, Clipboard;
@@ -12,10 +12,10 @@ import 'package:package_info_plus/package_info_plus.dart';
 import 'package:shogi/shogi.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+  const HomeScreen({super.key});
 
   @override
-  _HomeScreenState createState() => _HomeScreenState();
+  State<HomeScreen> createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
@@ -91,7 +91,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Future<void> _selectFile() async {
-    final file = await FileSelectorPlatform.instance.openFile(
+    final file = await openFile(
       acceptedTypeGroups: [
         XTypeGroup(
           extensions: ['kif'],
@@ -159,6 +159,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void _showAboutPage() async {
     final packageInfo = await PackageInfo.fromPlatform();
     showLicensePage(
+      // ignore: use_build_context_synchronously
       context: context,
       applicationName: 'Kifu Viewer',
       applicationVersion: packageInfo.version,

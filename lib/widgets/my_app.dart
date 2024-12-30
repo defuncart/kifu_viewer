@@ -5,7 +5,7 @@ import 'package:kifu_viewer/theme/app_themes.dart';
 import 'package:kifu_viewer/widgets/home_screen/home_screen.dart';
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -5,14 +5,14 @@ import 'package:shogi/shogi.dart';
 
 class KifuViewer extends StatefulWidget {
   const KifuViewer({
+    super.key,
     required this.game,
-    Key? key,
-  }) : super(key: key);
+  });
 
   final Game game;
 
   @override
-  _KifuViewerState createState() => _KifuViewerState();
+  State<KifuViewer> createState() => _KifuViewerState();
 }
 
 class _KifuViewerState extends State<KifuViewer> {
@@ -79,13 +79,13 @@ class _KifuViewerState extends State<KifuViewer> {
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
+                spacing: 16,
                 children: [
                   Expanded(
                     child: ShogiBoard(
                       gameBoard: gameBoard,
                     ),
                   ),
-                  const SizedBox(height: 16),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
