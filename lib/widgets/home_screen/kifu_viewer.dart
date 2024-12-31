@@ -5,14 +5,14 @@ import 'package:shogi/shogi.dart';
 
 class KifuViewer extends StatefulWidget {
   const KifuViewer({
+    super.key,
     required this.game,
-    Key? key,
-  }) : super(key: key);
+  });
 
   final Game game;
 
   @override
-  _KifuViewerState createState() => _KifuViewerState();
+  State<KifuViewer> createState() => _KifuViewerState();
 }
 
 class _KifuViewerState extends State<KifuViewer> {
@@ -59,12 +59,13 @@ class _KifuViewerState extends State<KifuViewer> {
                 itemBuilder: (_, index) {
                   final isSelected = index == _currentIndex - 1;
                   return Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 2),
                     color: isSelected ? Theme.of(context).colorScheme.secondary : Colors.transparent,
                     child: GestureDetector(
                       child: Text(
                         widget.game.moves[index].asKif!,
                         style: DefaultTextStyle.of(context).style.copyWith(
-                              color: isSelected ? Colors.white : Theme.of(context).textTheme.bodyText2!.color,
+                              color: isSelected ? Colors.white : Theme.of(context).textTheme.bodyMedium!.color,
                             ),
                       ),
                       onTap: () => setState(() => _currentIndex = index + 1),
@@ -78,13 +79,13 @@ class _KifuViewerState extends State<KifuViewer> {
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
+                spacing: 16,
                 children: [
                   Expanded(
                     child: ShogiBoard(
                       gameBoard: gameBoard,
                     ),
                   ),
-                  const SizedBox(height: 16),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [

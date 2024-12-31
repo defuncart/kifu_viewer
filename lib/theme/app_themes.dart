@@ -11,7 +11,9 @@ class AppThemes {
       secondary: _lightAppColors.accentColor,
     ),
     appBarTheme: AppBarTheme(
-      color: _lightAppColors.appBarColor,
+      color: _lightAppColors.accentColor,
+      foregroundColor: _lightAppColors.scaffoldBackgroundColor,
+      surfaceTintColor: Colors.transparent,
     ),
     //TODO this is because _PackagesView from about.dart uses card color for background color
     cardColor: _lightAppColors.scaffoldBackgroundColor,
@@ -22,11 +24,9 @@ class _AppColors {
   final Color scaffoldBackgroundColor;
   final Color accentColor;
   final Color disabledColor;
-  final Color appBarColor;
 
   const _AppColors.light()
       : scaffoldBackgroundColor = const Color(0xffffffff),
         accentColor = const Color(0xff009688),
-        disabledColor = const Color(0xffafafaf),
-        appBarColor = const Color(0xff009688);
+        disabledColor = const Color(0xffafafaf);
 }

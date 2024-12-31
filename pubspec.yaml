@@ -4,14 +4,16 @@ publish_to: 'none'
 version: 0.2.0+dev1
 
 environment:
-  sdk: '>=2.16.0 <3.0.0'
-  flutter: ">=2.10.0 <3.0.0"
+  sdk: ^3.6.0
+  flutter: ^3.27.0
 
 dependencies:
   flutter:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
+  shogi:
+  flutter_shogi_board:
   file_selector:
   file_selector_macos:
   file_selector_windows:
@@ -19,7 +21,7 @@ dependencies:
   file_selector_web:
   menubar:
     git:
-      url: git://github.com/google/flutter-desktop-embedding.git
+      url: https://github.com/google/flutter-desktop-embedding
       path: plugins/menubar
   material_design_icons_flutter:
   package_info_plus:
@@ -27,11 +29,9 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flappy_translator: ^2.0.0-nullsafety.2
-  flutter_lints:
+  arb_generator:
+  flutter_lints: ^5.0.0
   flutter_launcher_icons:
-    git:
-      url: https://github.com/dirkbo/flutter_launcher_icons
 
 dependency_overrides:
   shogi:
@@ -45,6 +45,7 @@ dependency_overrides:
 
 flutter:
   uses-material-design: true
+  generate: true
   assets:
     - assets/fonts/OFL.txt
   fonts:
@@ -52,19 +53,23 @@ flutter:
       fonts:
         - asset: assets/fonts/NotoSansJP-RegularLite.otf
 
-flappy_translator:
-  input_file_path: "assets_dev/loca/loca.csv"
-  output_dir: "lib"
-  file_name: "localizations"
-  class_name: "AppLocalizations"
-  delimiter: ";"
-  start_index: 1
-  depend_on_context: false
-  use_single_quotes: true
-  replace_no_break_spaces: false
+arb_generator:
+  input_filepath: "assets_dev/loca/loca.csv"
+  output_directory: "assets_dev/l10n"
+  filename_prepend: ""
+  csv_settings:
+    delimiter: ";"
+    base_index: 1
 
-flutter_icons:
+flutter_launcher_icons:
   android: false
   ios: false
-  macos: true
-  image_path: "assets_dev/icon/icon_macos.png"
+  image_path: "assets_dev/icon/icon.png"
+  macos:
+    generate: true
+    image_path: "assets_dev/icon/icon_macos.png"
+  web:
+    generate: true
+  windows:
+    generate: true
+    icon_size: 256

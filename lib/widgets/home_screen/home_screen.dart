@@ -1,10 +1,10 @@
 import 'dart:io' show Platform;
 
-import 'package:file_selector_platform_interface/file_selector_platform_interface.dart';
+import 'package:file_selector/file_selector.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show LogicalKeyboardKey, Clipboard;
-import 'package:kifu_viewer/localizations.dart';
+import 'package:kifu_viewer/l10n/l10n_extension.dart';
 import 'package:kifu_viewer/widgets/home_screen/kifu_viewer.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:menubar/menubar.dart';
@@ -12,10 +12,10 @@ import 'package:package_info_plus/package_info_plus.dart';
 import 'package:shogi/shogi.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+  const HomeScreen({super.key});
 
   @override
-  _HomeScreenState createState() => _HomeScreenState();
+  State<HomeScreen> createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
@@ -30,25 +30,27 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
 
     if (!kIsWeb) {
-      setApplicationMenu([
-        Submenu(
-          label: 'Kifu',
-          children: [
-            MenuItem(
-              label: AppLocalizations.menuBarOpenFile,
-              enabled: true,
-              shortcut: LogicalKeySet(LogicalKeyboardKey.meta, LogicalKeyboardKey.keyO),
-              onClicked: () async => await _selectFile(),
-            ),
-            MenuItem(
-              label: AppLocalizations.menuBarClipboard,
-              enabled: true,
-              shortcut: LogicalKeySet(LogicalKeyboardKey.meta, LogicalKeyboardKey.shift, LogicalKeyboardKey.keyV),
-              onClicked: () async => await _fromClipboard(),
-            ),
-          ],
-        ),
-      ]);
+      Future.microtask(() {
+        // ignore: use_build_context_synchronously
+        final l10n = context.l10n;
+        setApplicationMenu([
+          NativeSubmenu(
+            label: 'Kifu',
+            children: [
+              NativeMenuItem(
+                label: l10n.menuBarOpenFile,
+                shortcut: LogicalKeySet(LogicalKeyboardKey.meta, LogicalKeyboardKey.keyO),
+                onSelected: () async => await _selectFile(),
+              ),
+              NativeMenuItem(
+                label: l10n.menuBarClipboard,
+                shortcut: LogicalKeySet(LogicalKeyboardKey.meta, LogicalKeyboardKey.shift, LogicalKeyboardKey.keyV),
+                onSelected: () async => await _fromClipboard(),
+              ),
+            ],
+          ),
+        ]);
+      });
     }
   }
 
@@ -56,21 +58,21 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(AppLocalizations.appTitle),
+        title: Text(context.l10n.appTitle),
         actions: [
           IconButton(
-            icon: const Icon(MdiIcons.fileOutline),
-            tooltip: AppLocalizations.homeScreenOpenFileButtonTooltip,
+            icon: Icon(MdiIcons.fileOutline),
+            tooltip: context.l10n.homeScreenOpenFileButtonTooltip,
             onPressed: () async => await _selectFile(),
           ),
           IconButton(
-            icon: const Icon(MdiIcons.clipboardFileOutline),
-            tooltip: AppLocalizations.homeScreenClipboardButtonTooltip,
+            icon: Icon(MdiIcons.clipboardFileOutline),
+            tooltip: context.l10n.homeScreenClipboardButtonTooltip,
             onPressed: () async => await _fromClipboard(),
           ),
           IconButton(
-            icon: const Icon(MdiIcons.information),
-            tooltip: AppLocalizations.homeScreenInfoButtonTooltip,
+            icon: Icon(Icons.info),
+            tooltip: context.l10n.homeScreenInfoButtonTooltip,
             onPressed: _showAboutPage,
           ),
         ],
@@ -78,24 +80,24 @@ class _HomeScreenState extends State<HomeScreen> {
       body: Center(
         child: _hasGame
             ? DefaultTextStyle(
-                style: Theme.of(context).textTheme.bodyText2!.apply(
+                style: Theme.of(context).textTheme.bodyMedium!.apply(
                       fontFamily: _useCustomFont ? 'NotoSansJP' : null,
                     ),
                 child: KifuViewer(game: _game!),
               )
-            : Text(AppLocalizations.homeScreenNoKifu),
+            : Text(context.l10n.homeScreenNoKifu),
       ),
     );
   }
 
   Future<void> _selectFile() async {
-    final file = await FileSelectorPlatform.instance.openFile(
+    final file = await openFile(
       acceptedTypeGroups: [
         XTypeGroup(
           extensions: ['kif'],
         ),
       ],
-      confirmButtonText: AppLocalizations.generalOpen,
+      confirmButtonText: context.l10n.generalOpen,
     );
     if (file != null) {
       try {
@@ -121,8 +123,8 @@ class _HomeScreenState extends State<HomeScreen> {
         setState(() => _game = game);
       } else {
         _showCustomDialog(
-          title: AppLocalizations.gameAlreadyOpenPopupTitle,
-          description: AppLocalizations.gameAlreadyOpenPopupDescription,
+          title: context.l10n.gameAlreadyOpenPopupTitle,
+          description: context.l10n.gameAlreadyOpenPopupDescription,
         );
       }
       // ignore: avoid_catching_errors
@@ -132,8 +134,8 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void _showInvalidContent() => _showCustomDialog(
-        title: AppLocalizations.invalidContentPopupTitle,
-        description: AppLocalizations.invalidContentPopupDescription,
+        title: context.l10n.invalidContentPopupTitle,
+        description: context.l10n.invalidContentPopupDescription,
       );
 
   void _showCustomDialog({
@@ -147,11 +149,8 @@ class _HomeScreenState extends State<HomeScreen> {
           content: Text(description),
           actions: [
             TextButton(
-              child: Text(AppLocalizations.generalOk.toUpperCase()),
+              child: Text(context.l10n.generalOk.toUpperCase()),
               onPressed: () => Navigator.of(context).pop(),
-              style: TextButton.styleFrom(
-                primary: Theme.of(context).colorScheme.secondary,
-              ),
             ),
           ],
         ),
@@ -160,6 +159,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void _showAboutPage() async {
     final packageInfo = await PackageInfo.fromPlatform();
     showLicensePage(
+      // ignore: use_build_context_synchronously
       context: context,
       applicationName: 'Kifu Viewer',
       applicationVersion: packageInfo.version,
