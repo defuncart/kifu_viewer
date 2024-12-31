@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 /// A config of themes used in the app
 class AppThemes {
+  AppThemes._();
+
   static const _lightAppColors = _AppColors.light();
 
   static final light = ThemeData.light().copyWith(
