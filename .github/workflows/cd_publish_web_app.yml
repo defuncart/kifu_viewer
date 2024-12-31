@@ -13,11 +13,15 @@ jobs:
       REPO_NAME: kifu_viewer
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
-      - uses: subosito/flutter-action@v1
+      - uses: actions/checkout@v4
+      - uses: kuhnroyal/flutter-fvm-config-action@v2
+        id: fvm-config-action
+      - uses: subosito/flutter-action@v2
         with:
-          channel: 'stable'
-      - run: flutter pub get
+          flutter-version: ${{ steps.fvm-config-action.outputs.FLUTTER_VERSION }}
+          channel: ${{ steps.fvm-config-action.outputs.FLUTTER_CHANNEL }}
+      - name: Generate ARB files
+        run: dart run arb_generator
       - name: Build + Commit
         run: |
           flutter build web --release

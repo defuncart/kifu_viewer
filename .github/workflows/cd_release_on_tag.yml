@@ -8,9 +8,9 @@ on:
 env:
   BUILD_PATH_MACOS: build/macos/Build/Products/Release/
   BUILD_NAME_MACOS: Kifu\ Viewer.app
-  BUILD_PATH_LINUX: build/linux/x64/release/
+  BUILD_PATH_LINUX: build/linux/x64/release/bundle/
   BUILD_NAME_LINUX: kifu_viewer
-  BUILD_PATH_WINDOWS: build/windows/runner/
+  BUILD_PATH_WINDOWS: build/windows/x64/runner
   BUILD_NAME_WINDOWS: kifu_viewer
   ARTIFACT_NAME: kifu_viewer
 jobs:
@@ -22,14 +22,13 @@ jobs:
     steps:
       - name: Create Release
         id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
         with:
-          tag_name: ${{ github.ref }}
-          release_name: ${{ github.ref }}
+          name: ${{ github.ref_name }}
           draft: false
-          prerelease: false
+          prerelease: ${{ contains(github.ref_name, 'dev') }}
+          generate_release_notes: false
       - name: Save link
         id: save_link
         run: 
@@ -39,17 +38,17 @@ jobs:
     runs-on: macos-latest
     needs: create_release
     steps:
-      - uses: actions/checkout@v1
-      - uses: actions/setup-java@v1
+      - uses: actions/checkout@v4
+      - uses: kuhnroyal/flutter-fvm-config-action@v2
+        id: fvm-config-action
+      - uses: subosito/flutter-action@v2
         with:
-          java-version: '12.x'
-      - uses: subosito/flutter-action@v1
-        with:
-          channel: 'stable'
+          flutter-version: ${{ steps.fvm-config-action.outputs.FLUTTER_VERSION }}
+          channel: ${{ steps.fvm-config-action.outputs.FLUTTER_CHANNEL }}
+      - name: Generate ARB files
+        run: dart run arb_generator
       - name: Install packages
         run: flutter pub get
-      - name: Enable macOS Support
-        run: flutter config --enable-macos-desktop
       - name: Build macOS
         run: flutter build macos --release
       - name: Construct full artifact name 
@@ -70,36 +69,35 @@ jobs:
             ${{ env.BUILD_NAME_MACOS }}
       - name: Upload Release Asset
         id: upload-release-asset 
-        uses: actions/upload-release-asset@v1
+        uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          tag_name: ${{ needs.create_release.outputs.tag-name }}
+          files: ${{ env.BUILD_PATH_MACOS }}/${{ env.ARTIFACT_FULL_NAME }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ needs.create_release.outputs.upload_url }}
-          asset_path: ${{ env.BUILD_PATH_MACOS }}${{ env.ARTIFACT_FULL_NAME }}
-          asset_name: ${{ env.ARTIFACT_FULL_NAME }}
-          asset_content_type: application/octet-stream
   linux:
     name: Build + Upload Linux
     runs-on: ubuntu-latest
     needs: create_release
     steps:
-      - uses: actions/checkout@v1
-      - uses: actions/setup-java@v1
+      - uses: actions/checkout@v4
+      - uses: kuhnroyal/flutter-fvm-config-action@v2
+        id: fvm-config-action
+      - uses: subosito/flutter-action@v2
         with:
-          java-version: '12.x'
-      - uses: subosito/flutter-action@v1
-        with:
-          channel: 'stable'
+          flutter-version: ${{ steps.fvm-config-action.outputs.FLUTTER_VERSION }}
+          channel: ${{ steps.fvm-config-action.outputs.FLUTTER_CHANNEL }}
+      - name: Generate ARB files
+        run: dart run arb_generator
       - name: Install packages
         run: flutter pub get
-      - name: Enable Linux Support
-        run: flutter config --enable-linux-desktop
+      # https://docs.flutter.dev/get-started/install/linux#linux-prerequisites
       - name: Install dependencies for Linux
         run: |
-          sudo apt install clang
-          sudo apt install ninja-build
-          sudo apt install libgtk-3-dev
-          sudo apt install libblkid-dev
+          sudo apt-get update
+          sudo apt-get install --fix-missing
+          sudo apt-get install clang cmake git ninja-build pkg-config libgtk-3-dev liblzma-dev libstdc++-12-dev
       - name: Build Linux
         run: flutter build linux --release
       - name: Construct full artifact name 
@@ -107,30 +105,30 @@ jobs:
       - name: Create zip
         run: |
             cd ${{ env.BUILD_PATH_LINUX }}
-            mv bundle ${{ env.BUILD_NAME_LINUX }}
-            zip -r ${{ env.ARTIFACT_FULL_NAME }} ${{ env.BUILD_NAME_LINUX }}/
+            zip -r ${{ env.ARTIFACT_FULL_NAME }} .
       - name: Upload Release Asset
         id: upload-release-asset 
-        uses: actions/upload-release-asset@v1
+        uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          tag_name: ${{ needs.create_release.outputs.tag-name }}
+          files: ${{ env.BUILD_PATH_LINUX }}/${{ env.ARTIFACT_FULL_NAME }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ needs.create_release.outputs.upload_url }}
-          asset_path: ${{ env.BUILD_PATH_LINUX }}${{ env.ARTIFACT_FULL_NAME }}
-          asset_name: ${{ env.ARTIFACT_FULL_NAME }}
-          asset_content_type: application/zip
   windows:
     name: Build + Upload Windows
     runs-on: windows-latest
     needs: create_release
     steps:
-      - uses: actions/checkout@v1
-      - uses: actions/setup-java@v1
+      - uses: actions/checkout@v4
+      - uses: kuhnroyal/flutter-fvm-config-action@v2
+        id: fvm-config-action
+      - uses: subosito/flutter-action@v2
         with:
-          java-version: '12.x'
-      - uses: subosito/flutter-action@v1
-        with:
-          channel: 'stable'
+          flutter-version: ${{ steps.fvm-config-action.outputs.FLUTTER_VERSION }}
+          channel: ${{ steps.fvm-config-action.outputs.FLUTTER_CHANNEL }}
+      - name: Generate ARB files
+        run: dart run arb_generator
       - name: Install packages
         run: flutter pub get
       - name: Build Windows
@@ -141,11 +139,10 @@ jobs:
             powershell Compress-Archive Release\* ${{ env.ARTIFACT_NAME }}_windows.zip
       - name: Upload Release Asset
         id: upload-release-asset 
-        uses: actions/upload-release-asset@v1
+        uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          tag_name: ${{ needs.create_release.outputs.tag-name }}
+          files: ${{ env.BUILD_PATH_WINDOWS }}/${{ env.ARTIFACT_NAME }}_windows.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ needs.create_release.outputs.upload_url }}
-          asset_path: ${{ env.BUILD_PATH_WINDOWS }}${{ env.ARTIFACT_NAME }}_windows.zip
-          asset_name: ${{ env.ARTIFACT_NAME }}_windows.zip
-          asset_content_type: application/zip
