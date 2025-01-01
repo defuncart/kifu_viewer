@@ -32,6 +32,9 @@ dev_dependencies:
   arb_generator:
   flutter_lints: ^5.0.0
   flutter_launcher_icons:
+  app_store_screenshots:
+    git: 
+      url: https://github.com/defuncart/app_store_screenshots
 
 dependency_overrides:
   shogi:
@@ -64,10 +67,10 @@ arb_generator:
 flutter_launcher_icons:
   android: false
   ios: false
-  image_path: "assets_dev/icon/icon.png"
+  image_path: "assets_dev/app_icons/app_icon.png"
   macos:
     generate: true
-    image_path: "assets_dev/icon/icon_macos.png"
+    image_path: "assets_dev/app_icons/app_icon_macos.png"
   web:
     generate: true
   windows:

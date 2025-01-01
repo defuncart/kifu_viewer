@@ -41,6 +41,7 @@ app.*.symbols
 app.*.map.json
 
 # Local Assets
+assets_dev/app_icons/
 assets_dev/l10n/
 assets_dev/fonts/NotoSansJP-Regular.otf
 
