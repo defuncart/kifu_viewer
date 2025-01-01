@@ -1,7 +1,7 @@
 name: kifu_viewer
 description: An application to view Shogi games by loading Kifu files.
 publish_to: 'none'
-version: 0.2.0+dev1
+version: 0.2.0
 
 environment:
   sdk: ^3.6.0
